@@ -82,7 +82,11 @@
 
 // Baraja y empieza una partida
 - (IBAction)deal:(UIButton *)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"¿Estás seguro?" message:@"La partida actual se perderá" delegate:self cancelButtonTitle:@"Sí" otherButtonTitles:@"No", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"¿Estás seguro?"
+                                                    message:@"La partida actual se perderá"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Sí"
+                                          otherButtonTitles:@"No", nil];
     [alert show];
 }
 

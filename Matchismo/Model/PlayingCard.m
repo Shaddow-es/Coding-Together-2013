@@ -112,13 +112,13 @@
 
 - (NSString *) contents
 {
-    NSArray *rankStrings = [PlayingCard rankStrings];
+    NSArray *rankStrings = [[self class] rankStrings];
     return [rankStrings[self.rank] stringByAppendingString:self.suit];
 }
 
 - (void) setSuit:(NSString *)suit
 {
-    if ([[PlayingCard validSuits] containsObject:suit]) {
+    if ([[[self class] validSuits] containsObject:suit]) {
         _suit = suit;
     }
 }
