@@ -17,9 +17,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastActionLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gameModeSegControl;
+@property (weak, nonatomic) IBOutlet UISlider *historySlider;
 
 @property (nonatomic) NSInteger flipCount;
 @property (nonatomic, strong) CardMatchingGame *game;
+@property (nonatomic, strong) NSMutableArray *actionsHistory;
 
 @end
 
@@ -62,8 +64,18 @@
                                                  usingDeck:[[PlayingCardDeck alloc]init]
                                             usingMatchMode:matchCount];
     self.flipCount = 0;
+    [self.actionsHistory removeAllObjects];
+    [self updateLastHistoryAction];
     [self updateUI];
     [self.gameModeSegControl setEnabled:YES];
+}
+
+// Añade la última jugada al histórico y actualiza el slider (al final)
+- (void) updateLastHistoryAction {
+    [self.actionsHistory addObject:[self.game lastAction]]; // Añade la última jugada al array
+    self.historySlider.maximumValue = [self.actionsHistory count];
+    [self.historySlider setValue: self.historySlider.maximumValue animated:YES];
+    self.historySlider.alpha = 1.0;
 }
 
 // ---------------------------------------
@@ -76,6 +88,7 @@
 {
     [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
     self.flipCount++;
+    [self updateLastHistoryAction];
     [self updateUI];
     self.gameModeSegControl.enabled = NO;
 }
@@ -93,6 +106,12 @@
 // Cambia el modo de juego
 - (IBAction)changeGameMode:(UISegmentedControl *)sender {
     [self startNewGame];
+}
+
+// Se mueve por el slider del historíco de jugadas
+- (IBAction)travelHistory:(UISlider *)sender {
+    sender.alpha = (sender.value == sender.maximumValue) ? 1.0 : 0.5;
+    self.lastActionLabel.text = [self.actionsHistory objectAtIndex:floor(sender.value - 1)];
 }
 
 // ---------------------------------------
@@ -148,6 +167,14 @@
         [self startNewGame];
     }
     return _game;
+}
+
+- (NSMutableArray *) actionsHistory
+{
+    if (!_actionsHistory) {
+        _actionsHistory = [NSMutableArray array];
+    }
+    return _actionsHistory;
 }
 
 @end
