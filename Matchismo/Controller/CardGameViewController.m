@@ -21,7 +21,6 @@
 
 @property (nonatomic) NSInteger flipCount;
 @property (nonatomic, strong) CardMatchingGame *game;
-@property (nonatomic, strong) NSMutableArray *actionsHistory;
 
 @end
 
@@ -32,9 +31,29 @@
 // ---------------------------------------
 #pragma mark - Private methods
 
+// Modifica la visibilidad de un control
+- (void) setVisibility:(UIControl *)control visible:(BOOL)visible
+{
+    control.enabled = visible;
+    control.alpha = (visible) ? 1.0 : 0.0;
+}
+
 // Actualiza la interfaz con el modelo
 - (void) updateUI
 {
+    // Actualiza el slider
+    self.historySlider.maximumValue = [self.game.history count];
+    // Añade animación al slider cuando no estuviese al final
+    if (self.historySlider.value == self.historySlider.maximumValue - 1) {
+        self.historySlider.value = self.historySlider.maximumValue;
+    } else {
+        [self.historySlider setValue: self.historySlider.maximumValue animated:YES];
+    }
+
+    // Partida empezada muestra el slider, en otro caso el segmento de tipo de juego
+    [self setVisibility:self.historySlider visible:self.game.history.count > 1];
+    [self setVisibility:self.gameModeSegControl visible:self.game.history.count <= 1];
+    
     for (UIButton *cardButton in self.cardButtons) {
         Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
         
@@ -44,13 +63,13 @@
         cardButton.alpha = (card.unplayable) ? 0.3 : 1.0;
         
         // Carga la imagen cuando está volteada, la borra EOC
-        UIImage *cardBackImage = (card.isFaceUp) ? nil : [UIImage imageNamed:@"cardBack.png"];
+        UIImage *cardBackImage = (card.isFaceUp) ? nil : [UIImage imageNamed:@"card-back.png"];
         [cardButton setImage:cardBackImage forState:UIControlStateNormal];
         // Redondea la imagen
         cardButton.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
     }
     self.scoreLabel.text = [NSString stringWithFormat:@"Puntos: %d", self.game.score];
-    self.lastActionLabel.text = [NSString stringWithFormat:@"%@", self.game.lastAction];
+    self.lastActionLabel.text = [NSString stringWithFormat:@"%@", [self.game.history lastObject] ];
 }
 
 // Inicia una nueva partida
@@ -64,18 +83,7 @@
                                                  usingDeck:[[PlayingCardDeck alloc]init]
                                             usingMatchMode:matchCount];
     self.flipCount = 0;
-    [self.actionsHistory removeAllObjects];
-    [self updateLastHistoryAction];
     [self updateUI];
-    [self.gameModeSegControl setEnabled:YES];
-}
-
-// Añade la última jugada al histórico y actualiza el slider (al final)
-- (void) updateLastHistoryAction {
-    [self.actionsHistory addObject:[self.game lastAction]]; // Añade la última jugada al array
-    self.historySlider.maximumValue = [self.actionsHistory count];
-    [self.historySlider setValue: self.historySlider.maximumValue animated:YES];
-    self.historySlider.alpha = 1.0;
 }
 
 // ---------------------------------------
@@ -86,21 +94,35 @@
 // Voltea una carta
 - (IBAction)flipCard:(UIButton *)sender
 {
-    [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
-    self.flipCount++;
-    [self updateLastHistoryAction];
-    [self updateUI];
-    self.gameModeSegControl.enabled = NO;
+    if (!self.game.isGameOver){
+        // Animando el volteo de la carta
+        [UIView beginAnimations:@"flipCard" context:nil];
+        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight
+                               forView:sender
+                                 cache:YES];
+        [UIView setAnimationDuration:0.30];
+        [UIView commitAnimations];
+        
+        
+        [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
+        self.flipCount++;
+        [self updateUI];
+    }
 }
 
 // Baraja y empieza una partida
 - (IBAction)deal:(UIButton *)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"¿Estás seguro?"
-                                                    message:@"La partida actual se perderá"
-                                                   delegate:self
-                                          cancelButtonTitle:@"Sí"
-                                          otherButtonTitles:@"No", nil];
-    [alert show];
+    if (self.game.isGameOver) {
+        [self startNewGame];
+    } else {
+        // Si el juego no ha acabado pedimos confirmación
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"¿Estás seguro?"
+                                                        message:@"La partida actual se perderá"
+                                                       delegate:self
+                                              cancelButtonTitle:@"Sí"
+                                              otherButtonTitles:@"No", nil];
+        [alert show];
+    }
 }
 
 // Cambia el modo de juego
@@ -111,7 +133,7 @@
 // Se mueve por el slider del historíco de jugadas
 - (IBAction)travelHistory:(UISlider *)sender {
     sender.alpha = (sender.value == sender.maximumValue) ? 1.0 : 0.5;
-    self.lastActionLabel.text = [self.actionsHistory objectAtIndex:floor(sender.value - 1)];
+    self.lastActionLabel.text = [self.game.history objectAtIndex:floor(sender.value - 1)];
 }
 
 // ---------------------------------------
@@ -122,7 +144,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    // Load background image
+    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"table-background"]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -168,13 +192,4 @@
     }
     return _game;
 }
-
-- (NSMutableArray *) actionsHistory
-{
-    if (!_actionsHistory) {
-        _actionsHistory = [NSMutableArray array];
-    }
-    return _actionsHistory;
-}
-
 @end

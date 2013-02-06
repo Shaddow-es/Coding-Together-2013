@@ -12,8 +12,9 @@
 // Propiedades privadas
 @property (strong, nonatomic) NSMutableArray *cards; // of Card
 @property (nonatomic, readwrite) int score;
-@property (strong, nonatomic, readwrite) NSString *lastAction;
+@property (strong, nonatomic, readwrite) NSMutableArray *history; // of NSString
 @property (nonatomic, readwrite) int matchMode;
+@property (nonatomic, readwrite, getter = isGameOver) BOOL gameOver;
 @end
 
 @implementation CardMatchingGame
@@ -51,6 +52,7 @@
         }
         
         self.matchMode = matchCount;
+        self.gameOver = NO;
     }
     
     return self;
@@ -78,7 +80,7 @@
     if (!card.isUnplayable){
         if (!card.isFaceUp){
             self.score -= FLIP_COST;
-            self.lastAction = [NSString stringWithFormat:@"Voletada %@", card.contents];
+            NSString *lastAction = [NSString stringWithFormat:@"Voletada %@ restados %d puntos", card.contents, FLIP_COST];
             
             // Obtiene las cartas jugables y volteadas
             NSArray *cardsPlayabeAndFaceUp = [self cardsPlayabledAndFaceUp];
@@ -90,7 +92,7 @@
                     // Hay coincidencia
                     [self markCards:[cardsPlayabeAndFaceUp arrayByAddingObject:card] unplayable:YES faceUp:YES];
                     self.score += matchScore * MATCH_BONUS;
-                    self.lastAction = [NSString stringWithFormat:@"Coincidencia %@ para %d puntos",
+                    lastAction = [NSString stringWithFormat:@"Coincidencia %@ para %d puntos",
                                        [[cardsPlayabeAndFaceUp arrayByAddingObject:card] componentsJoinedByString:@","],
                                        matchScore * MATCH_BONUS];
                     // FIX: luego vuelve a dar la vuelta a la carta
@@ -101,16 +103,56 @@
                     [self markCards:cardsPlayabeAndFaceUp unplayable:NO faceUp:NO];
                     // Cuantas más cartas se comprueben mayor es la penalización
                     self.score -= MISMATCH_PENALTY;
-                    self.lastAction = [NSString stringWithFormat:@"%@ no coinciden! %d puntos penalización!",
+                    lastAction = [NSString stringWithFormat:@"%@ no coinciden! %d puntos penalización!",
                                        [[cardsPlayabeAndFaceUp arrayByAddingObject:card] componentsJoinedByString:@","],
                                        MISMATCH_PENALTY];
                 }
+            }
+            [self.history addObject:lastAction];
+            // Comprueba si el juego está acabado (así
+            if ( [self checkGameIsOver] ) {
+                self.gameOver = YES;
+                [self.history addObject:@"Juego acabado!"];
+                // FIX: luego vuelve a dar la vuelta a la carta
+                card.faceUp = NO;
             }
         }
         card.faceUp = !card.faceUp; // da la vuelta a la carta
     }
 }
 
+
+// Comprueba si el juego ha terminado
+- (BOOL) checkGameIsOver
+{
+    // Obtiene todas las cartas en juego
+    NSMutableArray *cardsNotFaceUp = [[NSMutableArray alloc] init];
+    for (Card *card in self.cards) {
+        if (!card.isUnplayable){
+            [cardsNotFaceUp addObject:card];
+        }
+    }
+    
+    // Si hay menos cartas en juego que las requeridas -> Fin del juego
+    if (cardsNotFaceUp && (cardsNotFaceUp.count < self.matchMode)) {
+        // Pone visibles todas las cartas no jugables
+        [self markCards:cardsNotFaceUp unplayable:NO faceUp:YES];
+        return YES;
+    }
+    
+    // Para todas las cartas en juego comprueba si hay coincidencia    
+    for (Card *card in cardsNotFaceUp) {
+        NSMutableArray *othersCards = [NSMutableArray arrayWithArray:cardsNotFaceUp];
+        [othersCards removeObject:card];
+        if ([card match:othersCards]){
+            return NO;
+        }
+    }
+    
+    // Pone visibles todas las cartas no jugables
+    [self markCards:cardsNotFaceUp unplayable:NO faceUp:YES];
+    return YES;
+}
 
 // ---------------------------------------
 //  -- Privated methods
@@ -150,8 +192,9 @@
     return _cards;
 }
 
-- (NSString *) lastAction{
-    return (!_lastAction) ? @"Empezar partida!" : _lastAction;
+- (NSMutableArray *) history{
+    _history = (!_history) ? [NSMutableArray arrayWithObject:@"Empezar partida!"] : _history;
+    return _history;
 }
 
 - (int) matchMode {
