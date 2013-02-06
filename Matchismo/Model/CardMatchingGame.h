@@ -28,6 +28,7 @@
 // Propiedades de solo lectura
 @property (nonatomic, readonly) int score;
 @property (nonatomic, readonly) int matchMode;
-@property (strong, nonatomic, readonly) NSString *lastAction;
+@property (strong, nonatomic, readonly) NSMutableArray *history; // of NSString
+@property (nonatomic, readonly, getter = isGameOver) BOOL gameOver;
 
 @end

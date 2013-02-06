@@ -22,8 +22,15 @@
 		8642480916BC2EDA007F25FC /* PlayingCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642480816BC2ED9007F25FC /* PlayingCard.m */; };
 		8642480C16BC34FD007F25FC /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 8642480B16BC34FD007F25FC /* PlayingCardDeck.m */; };
 		86AA4F4016BECE630065A2F2 /* CardGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86AA4F3F16BECE630065A2F2 /* CardGameViewController.m */; };
-		86AA4F4316BECE770065A2F2 /* cardback.png in Resources */ = {isa = PBXBuildFile; fileRef = 86AA4F4216BECE770065A2F2 /* cardback.png */; };
 		86AD976F16BD827800D6A189 /* CardMatchingGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 86AD976E16BD827800D6A189 /* CardMatchingGame.m */; };
+		86C7261216C2E42900C272FC /* table-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C725A316C2E42900C272FC /* table-background.png */; };
+		86C7261316C2E42900C272FC /* table-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C725A416C2E42900C272FC /* table-background@2x.png */; };
+		86C7261416C2E42900C272FC /* card-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C725A616C2E42900C272FC /* card-back.png */; };
+		86C7261516C2E42900C272FC /* card-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C725A716C2E42900C272FC /* card-back@2x.png */; };
+		86C7268216C2F1C400C272FC /* deal-deck.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C7268016C2F1C400C272FC /* deal-deck.png */; };
+		86C7268316C2F1C400C272FC /* deal-deck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C7268116C2F1C400C272FC /* deal-deck@2x.png */; };
+		86FDE3A816C3152700F895A0 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 86FDE3A616C3152700F895A0 /* icon.png */; };
+		86FDE3A916C3152700F895A0 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86FDE3A716C3152700F895A0 /* icon@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,9 +58,16 @@
 		8642480B16BC34FD007F25FC /* PlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayingCardDeck.m; path = Model/PlayingCardDeck.m; sourceTree = "<group>"; };
 		86AA4F3E16BECE630065A2F2 /* CardGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardGameViewController.h; sourceTree = "<group>"; };
 		86AA4F3F16BECE630065A2F2 /* CardGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardGameViewController.m; sourceTree = "<group>"; };
-		86AA4F4216BECE770065A2F2 /* cardback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardback.png; sourceTree = "<group>"; };
 		86AD976D16BD827800D6A189 /* CardMatchingGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardMatchingGame.h; path = Model/CardMatchingGame.h; sourceTree = "<group>"; };
 		86AD976E16BD827800D6A189 /* CardMatchingGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardMatchingGame.m; path = Model/CardMatchingGame.m; sourceTree = "<group>"; };
+		86C725A316C2E42900C272FC /* table-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "table-background.png"; sourceTree = "<group>"; };
+		86C725A416C2E42900C272FC /* table-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "table-background@2x.png"; sourceTree = "<group>"; };
+		86C725A616C2E42900C272FC /* card-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card-back.png"; sourceTree = "<group>"; };
+		86C725A716C2E42900C272FC /* card-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card-back@2x.png"; sourceTree = "<group>"; };
+		86C7268016C2F1C400C272FC /* deal-deck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deal-deck.png"; sourceTree = "<group>"; };
+		86C7268116C2F1C400C272FC /* deal-deck@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deal-deck@2x.png"; sourceTree = "<group>"; };
+		86FDE3A616C3152700F895A0 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		86FDE3A716C3152700F895A0 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +117,7 @@
 				864247F516BC2791007F25FC /* MainStoryboard.storyboard */,
 				86AA4F3D16BECE630065A2F2 /* Controller */,
 				8642480316BC2848007F25FC /* Model */,
-				86AA4F4116BECE770065A2F2 /* Resources */,
+				86C725A116C2E42900C272FC /* Resources */,
 				864247E416BC2791007F25FC /* Supporting Files */,
 			);
 			path = Matchismo;
@@ -151,12 +165,43 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		86AA4F4116BECE770065A2F2 /* Resources */ = {
+		86C725A116C2E42900C272FC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				86AA4F4216BECE770065A2F2 /* cardback.png */,
+				86FDE3A516C3152700F895A0 /* icon */,
+				86C725A216C2E42900C272FC /* background */,
+				86C725A516C2E42900C272FC /* cards */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		86C725A216C2E42900C272FC /* background */ = {
+			isa = PBXGroup;
+			children = (
+				86C725A316C2E42900C272FC /* table-background.png */,
+				86C725A416C2E42900C272FC /* table-background@2x.png */,
+			);
+			path = background;
+			sourceTree = "<group>";
+		};
+		86C725A516C2E42900C272FC /* cards */ = {
+			isa = PBXGroup;
+			children = (
+				86C7268016C2F1C400C272FC /* deal-deck.png */,
+				86C7268116C2F1C400C272FC /* deal-deck@2x.png */,
+				86C725A616C2E42900C272FC /* card-back.png */,
+				86C725A716C2E42900C272FC /* card-back@2x.png */,
+			);
+			path = cards;
+			sourceTree = "<group>";
+		};
+		86FDE3A516C3152700F895A0 /* icon */ = {
+			isa = PBXGroup;
+			children = (
+				86FDE3A616C3152700F895A0 /* icon.png */,
+				86FDE3A716C3152700F895A0 /* icon@2x.png */,
+			);
+			path = icon;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,7 +261,14 @@
 				864247F216BC2791007F25FC /* Default@2x.png in Resources */,
 				864247F416BC2791007F25FC /* Default-568h@2x.png in Resources */,
 				864247F716BC2791007F25FC /* MainStoryboard.storyboard in Resources */,
-				86AA4F4316BECE770065A2F2 /* cardback.png in Resources */,
+				86C7261216C2E42900C272FC /* table-background.png in Resources */,
+				86C7261316C2E42900C272FC /* table-background@2x.png in Resources */,
+				86C7261416C2E42900C272FC /* card-back.png in Resources */,
+				86C7261516C2E42900C272FC /* card-back@2x.png in Resources */,
+				86C7268216C2F1C400C272FC /* deal-deck.png in Resources */,
+				86C7268316C2F1C400C272FC /* deal-deck@2x.png in Resources */,
+				86FDE3A816C3152700F895A0 /* icon.png in Resources */,
+				86FDE3A916C3152700F895A0 /* icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,7 +324,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = FakeCode;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = FakeCode;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -287,6 +340,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -303,7 +358,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = FakeCode;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = FakeCode;
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -311,6 +367,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

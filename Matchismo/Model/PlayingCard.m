@@ -50,10 +50,7 @@
     int score = [self scoreMatch:cards];
 
     // Divide la puntuación según el número de cartas
-    NSLog(@"float_score=%f", (float)score / (float)otherCards.count);
     score = ceil((float)score / (float)otherCards.count);
-    NSLog(@"score=%d", score);
-    
     return score;
 }
 
