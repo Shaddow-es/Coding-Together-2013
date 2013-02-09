@@ -7,11 +7,13 @@
 //
 
 #import "CardMatchingGame.h"
+#import "GameResult.h"
 
 @interface CardMatchingGame ()
 // Propiedades privadas
 @property (strong, nonatomic) NSMutableArray *cards; // of Card
-@property (nonatomic, readwrite) int score;
+// La puntuación la almacenamos en la propiedad gameResult
+@property (nonatomic, readwrite) GameResult *gameResult;
 @property (strong, nonatomic, readwrite) NSMutableArray *history; // of NSString
 @property (nonatomic, readwrite) int matchMode;
 @property (nonatomic, readwrite, getter = isGameOver) BOOL gameOver;
@@ -53,6 +55,7 @@
         
         self.matchMode = matchCount;
         self.gameOver = NO;
+        self.gameResult = nil;
     }
     
     return self;
@@ -95,8 +98,6 @@
                     lastAction = [NSString stringWithFormat:@"Coincidencia %@ para %d puntos",
                                        [[cardsPlayabeAndFaceUp arrayByAddingObject:card] componentsJoinedByString:@","],
                                        matchScore * MATCH_BONUS];
-                    // FIX: luego vuelve a dar la vuelta a la carta
-                    card.faceUp = NO;
                 } else {
                     // Fallo, no hay coincidencia
                     // Da la vuelta al resto de cartas y decrementa la puntuación
@@ -113,9 +114,11 @@
             if ( [self checkGameIsOver] ) {
                 self.gameOver = YES;
                 [self.history addObject:@"Juego acabado!"];
-                // FIX: luego vuelve a dar la vuelta a la carta
-                card.faceUp = NO;
+                // Almacena la puntuación en el UserDefaults
+                [self.gameResult saveScoresInUserDefaults];
             }
+            // La carta no estaba volteada
+            card.faceUp = NO;
         }
         card.faceUp = !card.faceUp; // da la vuelta a la carta
     }
@@ -202,4 +205,21 @@
     return (!_matchMode) ? 2 : _matchMode;
 }
 
+- (GameResult *) gameResult
+{
+    if (!_gameResult) {
+        _gameResult = [[GameResult alloc] init];
+    }
+    return _gameResult;
+}
+
+- (int) score
+{
+    return self.gameResult.score;
+}
+
+- (void) setScore:(int)score
+{
+    self.gameResult.score = score;
+}
 @end
