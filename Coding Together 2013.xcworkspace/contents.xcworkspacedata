@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Attribute.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Matchismo.xcodeproj">
    </FileRef>
 </Workspace>
