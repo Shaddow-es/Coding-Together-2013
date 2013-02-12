@@ -79,6 +79,13 @@
     return allGameResults;
 }
 
+// Elimina el array de los resultados en StandarUserDefaults
++ (void) resetAllGameResults
+{
+    [[NSUserDefaults standardUserDefaults] setObject:[NSArray array] forKey:ALL_RESULTS_KEY];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 // ---------------------------------------
 //  -- Public methods
 // ---------------------------------------
@@ -98,6 +105,21 @@
     // Guarda el diccionario con el diccionario de las puntuaciones en el UserDefaults
     [[NSUserDefaults standardUserDefaults] setObject:mutableGameResultsFromUserDefaults forKey:ALL_RESULTS_KEY];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSComparisonResult)dateCompare:(GameResult *)gameResult
+{
+    return [self.start compare:gameResult.start];
+}
+
+- (NSComparisonResult)scoreCompare:(GameResult *)gameResult
+{
+    return [@(self.score) compare:@(gameResult.score)];
+}
+
+- (NSComparisonResult)durationCompare:(GameResult *)gameResult
+{
+    return [@(self.duration) compare:@(gameResult.duration)];
 }
 
 // ---------------------------------------

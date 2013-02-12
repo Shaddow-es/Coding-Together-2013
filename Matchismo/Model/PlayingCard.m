@@ -14,6 +14,13 @@
 @synthesize suit = _suit;
 
 // ---------------------------------------
+//  -- Constants
+// ---------------------------------------
+
+#define SCORE_MATCH_RANK 8
+#define SCORE_MATCH_SUIT 2
+
+// ---------------------------------------
 //  -- Class methods
 // ---------------------------------------
 #pragma mark - Class methods
@@ -79,8 +86,6 @@
     return score;
 }
 
-#define SCORE_MATCH_RANK 8
-#define SCORE_MATCH_SUIT 2
 // Calcula la puntuación entre 2 cartas
 - (int) scoreMatch:(PlayingCard *)card otherCard:(PlayingCard *)otherCard
 {

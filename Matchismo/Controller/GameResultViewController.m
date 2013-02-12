@@ -11,45 +11,82 @@
 
 @interface GameResultViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *display;
+@property (strong, nonatomic) NSArray *allGameResults;
 @end
 
 @implementation GameResultViewController
 
-- (void)updateUI
-{
-    NSString *displayText = @"";
-    
-    for (GameResult *result in [GameResult allGameResults]) {
-        displayText  = [displayText stringByAppendingFormat:@"Puntuación: %d (%@, %g0s)\n", result.score, result.end, round(result.duration)];
-    }
-    self.display.text = displayText;
-}
 
-- (void)viewWillAppear:(BOOL)animated
+// ---------------------------------------
+//  -- Actions
+// ---------------------------------------
+#pragma mark - Actions
+
+- (IBAction)changeSortMode:(UISegmentedControl *)sender
 {
-    [super viewWillAppear:animated];
+    switch (sender.selectedSegmentIndex) {
+        case 0:
+            self.allGameResults = [self.allGameResults sortedArrayUsingSelector:@selector(dateCompare:)];
+            break;
+        case 1:
+            self.allGameResults = [self.allGameResults sortedArrayUsingSelector:@selector(scoreCompare:)];
+            break;
+        case 2:
+            self.allGameResults = [self.allGameResults sortedArrayUsingSelector:@selector(durationCompare:)];
+            break;
+        default:
+            break;
+    }
+    self.allGameResults = [[self.allGameResults reverseObjectEnumerator] allObjects];
     [self updateUI];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+// ---------------------------------------
+//  -- Private methods
+// ---------------------------------------
+#pragma mark - Private Methods
+
+- (void)updateUI
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    NSMutableAttributedString *displayText = [[NSMutableAttributedString alloc] init];
+    
+    for (GameResult *result in self.allGameResults) {
+        NSString *dateFormated = [NSDateFormatter localizedStringFromDate:result.end
+                                                                dateStyle:NSDateFormatterShortStyle
+                                                                timeStyle:NSDateFormatterShortStyle];
+        NSString *extraInfo = [NSString stringWithFormat:@"(%@, %g0s)\n", dateFormated, round(result.duration)];
+        NSString *puntos = [NSString stringWithFormat:@"Puntos: %3d ", result.score];
+        
+        NSAttributedString *puntosAttributedString = [[NSAttributedString alloc] initWithString:puntos
+                                                                                     attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
+        NSAttributedString *extraInfoAttributedString = [[NSAttributedString alloc] initWithString:extraInfo
+                                                                                     attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12]}];
+        [displayText appendAttributedString:puntosAttributedString];
+        [displayText appendAttributedString:extraInfoAttributedString];
     }
-    return self;
+    [self.display setAttributedText:displayText];
 }
+
+
+// ---------------------------------------
+//  -- Controller
+// ---------------------------------------
+#pragma mark - Controller
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    // Load background image
+    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"table-background"]];
 }
-
-- (void)didReceiveMemoryWarning
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewWillAppear:animated];
+    self.allGameResults = [GameResult allGameResults];
+    self.allGameResults = [self.allGameResults sortedArrayUsingSelector:@selector(dateCompare:)];
+    self.allGameResults = [[self.allGameResults reverseObjectEnumerator] allObjects];
+    [self updateUI];
 }
 
 @end

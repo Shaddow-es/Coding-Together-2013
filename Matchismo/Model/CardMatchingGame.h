@@ -12,12 +12,18 @@
 @interface CardMatchingGame : NSObject
 
 // Inicializador designado
-//    cardCount: Número de cartas a jugar
-//         deck: baraja desde la que obtener cartas
-//   matchCount: Número de cartas sobre las que buscar coincidencias
+//         cardCount: Número de cartas a jugar
+//              deck: baraja desde la que obtener cartas
+//         matchMode: Número de cartas sobre las que buscar coincidencias
+//        matchBonus: Bonus otorgado al obtener una coincidencia
+//   missmatchPenaly: Penalización por fallo
+//          flipCost: Coste por voltear una carta
 - (id) initWithCardCount:(NSUInteger)cardCount
                usingDeck:(Deck *)deck
-          usingMatchMode:(NSUInteger)matchCount;
+               matchMode:(NSUInteger)matchCount
+              matchBonus:(NSUInteger)matchBonus
+         mismatchPenaly:(NSUInteger)missmatchPenalty
+               flipCost:(NSUInteger)flipCost;
 
 // Voltea la carta en el lugar indicado
 - (void) flipCardAtIndex:(NSUInteger)index;
@@ -28,7 +34,7 @@
 // Propiedades de solo lectura
 @property (nonatomic, readonly) int score;
 @property (nonatomic, readonly) int matchMode;
-@property (strong, nonatomic, readonly) NSMutableArray *history; // of NSString
+@property (strong, nonatomic, readonly) NSMutableArray *moves; // of CardMove
 @property (nonatomic, readonly, getter = isGameOver) BOOL gameOver;
 
 @end

@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CardMatchingGame.h"
 
 @interface CardGameViewController : UIViewController <UIAlertViewDelegate>
+
+// Inicia una nueva partida
+- (void) startNewGame;
 
 @end

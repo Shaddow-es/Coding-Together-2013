@@ -7,8 +7,8 @@
 //
 
 #import "CardGameViewController.h"
-#import "PlayingCardDeck.h"
-#import "CardMatchingGame.h"
+#import "CardMove.h"
+#import "GameSettings.h"
 
 @interface CardGameViewController ()
 
@@ -16,72 +16,38 @@
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastActionLabel;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *gameModeSegControl;
 @property (weak, nonatomic) IBOutlet UISlider *historySlider;
 
 @property (nonatomic) NSInteger flipCount;
 @property (nonatomic, strong) CardMatchingGame *game;
-
 @end
 
 @implementation CardGameViewController
 
 // ---------------------------------------
-//  -- Private methods
+//  -- Constantes
 // ---------------------------------------
-#pragma mark - Private methods
 
-// Modifica la visibilidad de un control
-- (void) setVisibility:(UIControl *)control visible:(BOOL)visible
-{
-    control.enabled = visible;
-    control.alpha = (visible) ? 1.0 : 0.0;
-}
+#define DEFAULT_MATCH_MODE 2
+#define DEFAULT_MATCH_BONUS  4
+#define DEFAULT_MISMATCH_PENALTY 2
+#define DEFAULT_FLIP_COST 2
 
-// Actualiza la interfaz con el modelo
-- (void) updateUI
-{
-    // Actualiza el slider
-    self.historySlider.maximumValue = [self.game.history count];
-    // Añade animación al slider cuando no estuviese al final
-    if (self.historySlider.value == self.historySlider.maximumValue - 1) {
-        self.historySlider.value = self.historySlider.maximumValue;
-    } else {
-        [self.historySlider setValue: self.historySlider.maximumValue animated:YES];
-    }
-
-    // Partida empezada muestra el slider, en otro caso el segmento de tipo de juego
-    [self setVisibility:self.historySlider visible:self.game.history.count > 1];
-    [self setVisibility:self.gameModeSegControl visible:self.game.history.count <= 1];
-    
-    for (UIButton *cardButton in self.cardButtons) {
-        Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
-        
-        [cardButton setTitle:card.contents forState:UIControlStateNormal];
-        cardButton.selected = card.isFaceUp;
-        cardButton.enabled = !card.unplayable;
-        cardButton.alpha = (card.unplayable) ? 0.3 : 1.0;
-        
-        // Carga la imagen cuando está volteada, la borra EOC
-        UIImage *cardBackImage = (card.isFaceUp) ? nil : [UIImage imageNamed:@"card-back.png"];
-        [cardButton setImage:cardBackImage forState:UIControlStateNormal];
-        // Redondea la imagen
-        cardButton.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
-    }
-    self.scoreLabel.text = [NSString stringWithFormat:@"Puntos: %d", self.game.score];
-    self.lastActionLabel.text = [NSString stringWithFormat:@"%@", [self.game.history lastObject] ];
-}
+// ---------------------------------------
+//  -- Public methods
+// ---------------------------------------
+#pragma mark - Public Methods
 
 // Inicia una nueva partida
 - (void) startNewGame
 {
-    // Número de cartas sobre las que se busca coincidencias
-    NSUInteger matchCount = self.gameModeSegControl.selectedSegmentIndex + 2;
     
-    NSLog(@"Empezando partida para juego de %d cartas", matchCount);
     self.game = [[CardMatchingGame alloc]initWithCardCount:self.cardButtons.count
-                                                 usingDeck:[[PlayingCardDeck alloc]init]
-                                            usingMatchMode:matchCount];
+                                                 usingDeck:[self getDeck]
+                                                 matchMode:[self getMatchCount]
+                                                matchBonus:[self getMatchBonus]
+                                           mismatchPenaly:[self getMisMatchPenalty]
+                                                  flipCost:[self getFlipCost]];
     self.flipCount = 0;
     [self updateUI];
 }
@@ -95,15 +61,16 @@
 - (IBAction)flipCard:(UIButton *)sender
 {
     if (!self.game.isGameOver){
-        // Animando el volteo de la carta
-        [UIView beginAnimations:@"flipCard" context:nil];
-        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight
-                               forView:sender
-                                 cache:YES];
-        [UIView setAnimationDuration:0.30];
-        [UIView commitAnimations];
+        if ([[[GameSettings alloc] init] isFlipAnimated]){
+            // Animando el volteo de la carta
+            [UIView transitionWithView:sender
+                              duration:0.30
+                               options:UIViewAnimationOptionTransitionFlipFromLeft
+                            animations:^{}
+                            completion:NULL];
+        }
         
-        
+        // Operaciones a realizar durante la transacción
         [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
         self.flipCount++;
         [self updateUI];
@@ -125,15 +92,140 @@
     }
 }
 
-// Cambia el modo de juego
-- (IBAction)changeGameMode:(UISegmentedControl *)sender {
-    [self startNewGame];
-}
-
 // Se mueve por el slider del historíco de jugadas
 - (IBAction)travelHistory:(UISlider *)sender {
     sender.alpha = (sender.value == sender.maximumValue) ? 1.0 : 0.5;
-    self.lastActionLabel.text = [self.game.history objectAtIndex:floor(sender.value - 1)];
+    CardMove *cardMove = [self.game.moves objectAtIndex:floor(sender.value - 1)];
+    self.lastActionLabel.attributedText = [self cardMoveToAttributedString:cardMove];
+}
+
+
+// ---------------------------------------
+//  -- Private methods
+// ---------------------------------------
+#pragma mark - Private Methods
+
+// Actualiza la interfaz genérica de un juego de cartas con el modelo
+//  - Última puntuación
+//  - Puntuación
+- (void) updateUI
+{
+    self.scoreLabel.text = [NSString stringWithFormat:@"Puntos: %d", self.game.score];
+    self.lastActionLabel.attributedText = [self cardMoveToAttributedString:[self.game.moves lastObject]];
+    
+    // Actualiza el slider
+    self.historySlider.maximumValue = [self.game.moves count];
+    // Añade animación al slider cuando no estuviese al final
+    if (self.historySlider.value == self.historySlider.maximumValue - 1) {
+        self.historySlider.value = self.historySlider.maximumValue;
+    } else {
+        [self.historySlider setValue: self.historySlider.maximumValue animated:YES];
+    }
+    
+    // Actualiaciones de UI específicas de subclases
+    [self updateUISpecificCardGame];
+}
+
+// Devuelve un string con formato con el contenido de la carta
+- (NSAttributedString *) cardAsAttributedString:(Card *)card
+{
+    NSString *str = [NSString stringWithFormat:@"%@ ", card.contents];
+    return [[NSMutableAttributedString alloc] initWithString:str];
+}
+
+// Devuelve un string con formato con un array de cartas
+- (NSAttributedString *) cardsAsAttributedString:(NSArray *)cards
+{
+    NSMutableAttributedString *cardAttributtedString = [self stringToLabelAttributedString:@" "];
+    for (Card *card in cards) {
+        [cardAttributtedString appendAttributedString:[self cardAsAttributedString:card]];
+        [cardAttributtedString appendAttributedString:[self stringToLabelAttributedString:@" "]];
+    }
+    return cardAttributtedString;
+}
+
+// Dado un string formatea el string para poder ser visualizado en el label del histórico
+- (NSMutableAttributedString *) stringToLabelAttributedString:(NSString *)str
+{
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:str];
+    NSRange range = NSMakeRange(0, [str length]);
+    [attributedString addAttribute:NSForegroundColorAttributeName
+                                  value:[UIColor whiteColor]
+                                  range:range];
+    return attributedString;
+    
+}
+
+- (NSAttributedString *) cardMoveToAttributedString:(CardMove *)cardMove
+{
+    NSMutableAttributedString *cardAttributtedString = [[NSMutableAttributedString alloc] init];
+    
+    if (cardMove.type == CardMoveTypeGameStarted){
+        [cardAttributtedString appendAttributedString:[self stringToLabelAttributedString:@"Empezar partida"]];
+    } else if (cardMove.type == CardMoveTypeGameFinished){
+        [cardAttributtedString appendAttributedString:[self stringToLabelAttributedString:@"Juego acabado!"]];
+    } else if (cardMove.type == CardMoveTypeFlipUp) {
+        NSAttributedString *astrStart = [self stringToLabelAttributedString:@"Volteada "];
+        NSString *strEnd = [NSString stringWithFormat:@" restados %d puntos", cardMove.score];
+        NSAttributedString *astrEnd = [self stringToLabelAttributedString:strEnd];
+                                       
+        [cardAttributtedString appendAttributedString:astrStart];
+        [cardAttributtedString appendAttributedString:[self cardsAsAttributedString:cardMove.cards]];
+        [cardAttributtedString appendAttributedString:astrEnd];
+    } else if (cardMove.type == CardMoveTypeMatch) {
+        NSAttributedString *astrStart = [self stringToLabelAttributedString:@"Coincidencia "];
+        NSString *strEnd = [NSString stringWithFormat:@" para %d puntos", cardMove.score];
+        NSAttributedString *astrEnd = [self stringToLabelAttributedString:strEnd];
+        
+        [cardAttributtedString appendAttributedString:astrStart];
+        [cardAttributtedString appendAttributedString:[self cardsAsAttributedString:cardMove.cards]];
+        [cardAttributtedString appendAttributedString:astrEnd];
+    } else if (cardMove.type == CardMoveTypeMismatch) {
+        NSString *strEnd = [NSString stringWithFormat:@" no coinciden! %d puntos de penalización", cardMove.score];
+        NSAttributedString *astrEnd = [self stringToLabelAttributedString:strEnd];
+        
+        [cardAttributtedString appendAttributedString:[self cardsAsAttributedString:cardMove.cards]];
+        [cardAttributtedString appendAttributedString:astrEnd];
+    }
+    
+    return cardAttributtedString;
+}
+
+
+// ---------------------------------------
+//  -- Private methods (to implement in subclass)
+// ---------------------------------------
+#pragma mark - Private Methods to oimplement in subclass
+
+// Actualiza los controles específicos de cada subclase
+- (void) updateUISpecificCardGame
+{
+    // Nada que hacer en la clase genérica
+}
+
+- (int) getMatchCount
+{
+    return DEFAULT_MATCH_MODE;
+}
+
+- (int) getMatchBonus
+{
+    return DEFAULT_MATCH_BONUS;
+}
+
+- (int) getMisMatchPenalty
+{
+    return DEFAULT_MISMATCH_PENALTY;
+}
+
+- (int) getFlipCost
+{
+    return DEFAULT_FLIP_COST;
+}
+
+- (Deck *) getDeck
+{
+    return [[Deck alloc] init];
 }
 
 // ---------------------------------------
@@ -147,12 +239,7 @@
     
     // Load background image
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"table-background"]];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self startNewGame];
 }
 
 // ---------------------------------------

@@ -8,15 +8,21 @@
 
 #import "CardMatchingGame.h"
 #import "GameResult.h"
+#import "CardMove.h"
 
 @interface CardMatchingGame ()
 // Propiedades privadas
 @property (strong, nonatomic) NSMutableArray *cards; // of Card
 // La puntuación la almacenamos en la propiedad gameResult
 @property (nonatomic, readwrite) GameResult *gameResult;
-@property (strong, nonatomic, readwrite) NSMutableArray *history; // of NSString
+@property (strong, nonatomic, readwrite) NSMutableArray *moves; // of CardMove
 @property (nonatomic, readwrite) int matchMode;
 @property (nonatomic, readwrite, getter = isGameOver) BOOL gameOver;
+
+// Propiedades para los costes
+@property (nonatomic, readonly) NSUInteger matchBonus;
+@property (nonatomic, readonly) NSUInteger flipCost;
+@property (nonatomic, readonly) NSUInteger mismatchPenalty;
 @end
 
 @implementation CardMatchingGame
@@ -32,16 +38,22 @@
 }
 
 // Inicializador designado
-//    cardCount: Número de cartas a jugar
-//         deck: baraja desde la que obtener cartas
-//   matchCount: Número de cartas sobre las que buscar coincidencias
-- (id) initWithCardCount:(NSUInteger)count
+//         cardCount: Número de cartas a jugar
+//              deck: baraja desde la que obtener cartas
+//         matchMode: Número de cartas sobre las que buscar coincidencias
+//        matchBonus: Bonus otorgado al obtener una coincidencia
+//   missmatchPenaly: Penalización por fallo
+//          flipCost: Coste por voltear una carta
+- (id) initWithCardCount:(NSUInteger)cardCount
                usingDeck:(Deck *)deck
-          usingMatchMode:(NSUInteger)matchCount {
+               matchMode:(NSUInteger)matchCount
+              matchBonus:(NSUInteger)matchBonus
+          mismatchPenaly:(NSUInteger)missmatchPenalty
+                flipCost:(NSUInteger)flipCost {
     self = [super init];
     
     if (self){
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < cardCount; i++) {
             Card *card = [deck drawRandomCard];
             // Proteccion por si nos quedamos sin cartas en la baraja
             // Al añadir un nil a un array se produce un error
@@ -53,9 +65,12 @@
             }
         }
         
-        self.matchMode = matchCount;
-        self.gameOver = NO;
-        self.gameResult = nil;
+        _matchMode = matchCount;
+        _gameOver = NO;
+        _gameResult = nil;
+        _matchBonus = matchBonus;
+        _mismatchPenalty = missmatchPenalty;
+        _flipCost = flipCost;
     }
     
     return self;
@@ -72,18 +87,14 @@
     return (index < [self.cards count]) ? self.cards[index] : nil;
 }
 
-#define MATCH_BONUS 4
-#define MISMATCH_PENALTY (2 * (self.matchMode-1)) // Cuanto mayor nº cartas, más penalización
-#define FLIP_COST (1 * (self.matchMode-1)) // Cuanto mayor nº cartas, más coste por voltear
-
 // Obtiene la carta del lugar indicado
 - (void) flipCardAtIndex:(NSUInteger)index {
     Card *card = [self cardAtIndex:index];
     
     if (!card.isUnplayable){
         if (!card.isFaceUp){
-            self.score -= FLIP_COST;
-            NSString *lastAction = [NSString stringWithFormat:@"Voletada %@ restados %d puntos", card.contents, FLIP_COST];
+            self.score -= self.flipCost;
+            CardMove *cardMove = [[CardMove alloc] initWithActionType:CardMoveTypeFlipUp score:self.flipCost cards:@[card]];
             
             // Obtiene las cartas jugables y volteadas
             NSArray *cardsPlayabeAndFaceUp = [self cardsPlayabledAndFaceUp];
@@ -94,26 +105,26 @@
                 if (matchScore) {
                     // Hay coincidencia
                     [self markCards:[cardsPlayabeAndFaceUp arrayByAddingObject:card] unplayable:YES faceUp:YES];
-                    self.score += matchScore * MATCH_BONUS;
-                    lastAction = [NSString stringWithFormat:@"Coincidencia %@ para %d puntos",
-                                       [[cardsPlayabeAndFaceUp arrayByAddingObject:card] componentsJoinedByString:@","],
-                                       matchScore * MATCH_BONUS];
+                    self.score += matchScore * self.matchBonus;
+                    cardMove = [[CardMove alloc] initWithActionType:CardMoveTypeMatch
+                                                              score:(matchScore * self.matchBonus)
+                                                              cards:[cardsPlayabeAndFaceUp arrayByAddingObject:card]];
                 } else {
                     // Fallo, no hay coincidencia
                     // Da la vuelta al resto de cartas y decrementa la puntuación
                     [self markCards:cardsPlayabeAndFaceUp unplayable:NO faceUp:NO];
                     // Cuantas más cartas se comprueben mayor es la penalización
-                    self.score -= MISMATCH_PENALTY;
-                    lastAction = [NSString stringWithFormat:@"%@ no coinciden! %d puntos penalización!",
-                                       [[cardsPlayabeAndFaceUp arrayByAddingObject:card] componentsJoinedByString:@","],
-                                       MISMATCH_PENALTY];
+                    self.score -= self.mismatchPenalty;
+                    cardMove = [[CardMove alloc] initWithActionType:CardMoveTypeMismatch
+                                                              score:(self.mismatchPenalty)
+                                                              cards:[cardsPlayabeAndFaceUp arrayByAddingObject:card]];
                 }
             }
-            [self.history addObject:lastAction];
+            [self.moves addObject:cardMove];
             // Comprueba si el juego está acabado (así
             if ( [self checkGameIsOver] ) {
                 self.gameOver = YES;
-                [self.history addObject:@"Juego acabado!"];
+                [self.moves addObject:[[CardMove alloc] initWithGameFinished] ];
                 // Almacena la puntuación en el UserDefaults
                 [self.gameResult saveScoresInUserDefaults];
             }
@@ -195,9 +206,12 @@
     return _cards;
 }
 
-- (NSMutableArray *) history{
-    _history = (!_history) ? [NSMutableArray arrayWithObject:@"Empezar partida!"] : _history;
-    return _history;
+- (NSMutableArray *) moves{
+    if (!_moves){
+        CardMove *cardMove = [[CardMove alloc] initWithGameStarted];
+        _moves = [NSMutableArray arrayWithArray:@[cardMove]];
+    }
+    return _moves;
 }
 
 - (int) matchMode {
