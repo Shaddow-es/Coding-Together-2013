@@ -915,50 +915,6 @@ Coding together 2013</string>
         <image name="iconSet.png" width="30" height="30"/>
         <image name="iconSettings.png" width="30" height="30"/>
     </resources>
-    <classes>
-        <class className="CardGameViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardGameViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="deal:" candidateClass="UIButton"/>
-                <relationship kind="action" name="flipCard:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="flipsLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="historySlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="lastActionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scoreLabel" candidateClass="UILabel"/>
-                <relationship kind="outletCollection" name="cardButtons" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="GameResultViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GameResultViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changeSortMode:" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="display" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="PlayingCardGameViewController" superclassName="CardGameViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlayingCardGameViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changeGameMode:" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="gameModeSegControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="historySlider" candidateClass="UISlider"/>
-                <relationship kind="outletCollection" name="cardButtons" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="SetCardGameViewController" superclassName="CardGameViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SetCardGameViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="historySlider" candidateClass="UISlider"/>
-                <relationship kind="outletCollection" name="cardButtons" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="SettingsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changeFlipAnimation:" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="flipAnimatedSwitch" candidateClass="UISwitch"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
