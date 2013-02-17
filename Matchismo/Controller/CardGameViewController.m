@@ -9,14 +9,15 @@
 #import "CardGameViewController.h"
 #import "CardMove.h"
 #import "GameSettings.h"
+#import "CardMatchingGame.h"
 
-@interface CardGameViewController ()
+@interface CardGameViewController () <UICollectionViewDataSource>
 
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastActionLabel;
 @property (weak, nonatomic) IBOutlet UISlider *historySlider;
+@property (weak, nonatomic) IBOutlet UICollectionView *cardCollectionView;
 
 @property (nonatomic) NSInteger flipCount;
 @property (nonatomic, strong) CardMatchingGame *game;
@@ -24,14 +25,48 @@
 
 @implementation CardGameViewController
 
-// ---------------------------------------
-//  -- Constantes
-// ---------------------------------------
 
-#define DEFAULT_MATCH_MODE 2
-#define DEFAULT_MATCH_BONUS  4
-#define DEFAULT_MISMATCH_PENALTY 2
-#define DEFAULT_FLIP_COST 2
+// ---------------------------------------
+//  -- UICollectionViewDataSource methods
+// ---------------------------------------
+#pragma mark - UICollectionViewDataSource Methods
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.startingCardCount;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PlayingCard" forIndexPath:indexPath];
+    Card *card = [self.game cardAtIndex:indexPath.item];
+    [self updateCell:cell usingCard:card animate:NO];
+    return cell;
+}
+
+
+// ---------------------------------------
+//  -- Abstract methods
+// ---------------------------------------
+#pragma mark - Abstract Methods
+
+
+// Crea una nueva baraja de cartas
+- (Deck *)createDeck
+{
+    @throw [NSException exceptionWithName:@"Método abstracto no implementado"
+                                   reason:@"Estás invocando al método abstracto 'createDeck'!"
+                                 userInfo:nil];
+}
+
+// Actualiza una celda con el contenido de una carta
+- (void)updateCell:(UICollectionViewCell *)cell usingCard:(Card *)card animate:(BOOL)animate
+{
+    @throw [NSException exceptionWithName:@"Método abstracto no implementado"
+                                   reason:@"Estás invocando al método abstracto 'updateCell'!"
+                                 userInfo:nil];
+}
 
 // ---------------------------------------
 //  -- Public methods
@@ -42,12 +77,12 @@
 - (void) startNewGame
 {
     
-    self.game = [[CardMatchingGame alloc]initWithCardCount:self.cardButtons.count
-                                                 usingDeck:[self getDeck]
-                                                 matchMode:[self getMatchCount]
-                                                matchBonus:[self getMatchBonus]
-                                           mismatchPenaly:[self getMisMatchPenalty]
-                                                  flipCost:[self getFlipCost]];
+    self.game = [[CardMatchingGame alloc]initWithCardCount:self.startingCardCount
+                                                 usingDeck:[self createDeck]
+                                                 matchMode:self.matchCount
+                                                matchBonus:self.matchBonus
+                                            mismatchPenaly:self.mismatchPenalty
+                                                  flipCost:self.flipCost];
     self.flipCount = 0;
     [self updateUI];
 }
@@ -58,22 +93,19 @@
 #pragma mark - Actions
 
 // Voltea una carta
-- (IBAction)flipCard:(UIButton *)sender
+- (IBAction)flipCard:(UITapGestureRecognizer *)gesture
 {
-    if (!self.game.isGameOver){
-        if ([[[GameSettings alloc] init] isFlipAnimated]){
-            // Animando el volteo de la carta
-            [UIView transitionWithView:sender
-                              duration:0.30
-                               options:UIViewAnimationOptionTransitionFlipFromLeft
-                            animations:^{}
-                            completion:NULL];
+    CGPoint tapLocation = [gesture locationInView:self.cardCollectionView];
+    NSIndexPath *indexPath = [self.cardCollectionView indexPathForItemAtPoint:tapLocation];
+    if (indexPath){
+        
+        if (!self.game.isGameOver){
+            // Operaciones a realizar durante la transacción
+            [self.game flipCardAtIndex:indexPath.item];
+            self.flipCount++;
+            [self updateUI];
         }
         
-        // Operaciones a realizar durante la transacción
-        [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
-        self.flipCount++;
-        [self updateUI];
     }
 }
 
@@ -105,9 +137,6 @@
 // ---------------------------------------
 #pragma mark - Private Methods
 
-// Actualiza la interfaz genérica de un juego de cartas con el modelo
-//  - Última puntuación
-//  - Puntuación
 - (void) updateUI
 {
     self.scoreLabel.text = [NSString stringWithFormat:@"Puntos: %d", self.game.score];
@@ -120,10 +149,15 @@
         self.historySlider.value = self.historySlider.maximumValue;
     } else {
         [self.historySlider setValue: self.historySlider.maximumValue animated:YES];
+        self.historySlider.alpha = 1.0;
     }
     
-    // Actualiaciones de UI específicas de subclases
-    [self updateUISpecificCardGame];
+    // Actualiza las cartas
+    for (UICollectionViewCell *cell in [self.cardCollectionView visibleCells]) {
+        NSIndexPath *indexPath = [self.cardCollectionView indexPathForCell:cell];
+        Card *card = [self.game cardAtIndex:indexPath.item];
+        [self updateCell:cell usingCard:card animate:YES];
+    }
 }
 
 // Devuelve un string con formato con el contenido de la carta
@@ -191,43 +225,6 @@
     return cardAttributtedString;
 }
 
-
-// ---------------------------------------
-//  -- Private methods (to implement in subclass)
-// ---------------------------------------
-#pragma mark - Private Methods to oimplement in subclass
-
-// Actualiza los controles específicos de cada subclase
-- (void) updateUISpecificCardGame
-{
-    // Nada que hacer en la clase genérica
-}
-
-- (int) getMatchCount
-{
-    return DEFAULT_MATCH_MODE;
-}
-
-- (int) getMatchBonus
-{
-    return DEFAULT_MATCH_BONUS;
-}
-
-- (int) getMisMatchPenalty
-{
-    return DEFAULT_MISMATCH_PENALTY;
-}
-
-- (int) getFlipCost
-{
-    return DEFAULT_FLIP_COST;
-}
-
-- (Deck *) getDeck
-{
-    return [[Deck alloc] init];
-}
-
 // ---------------------------------------
 //  -- Controller
 // ---------------------------------------
@@ -259,12 +256,6 @@
 //  -- Getters & Setters
 // ---------------------------------------
 #pragma mark - Getters & Setters
-
-- (void) setCardButtons:(NSArray *)cardButtons
-{
-    _cardButtons = cardButtons;
-    [self updateUI];
-}
 
 - (void) setFlipCount:(NSInteger)flipCount
 {

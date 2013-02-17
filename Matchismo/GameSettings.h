@@ -10,6 +10,10 @@
 
 @interface GameSettings : NSObject
 
-@property (nonatomic, getter = isFlipAnimated) BOOL flipAnimated;
++ (void)setFlipAnimated:(BOOL)flipAnimated;
++ (BOOL)isFlipAnimated;
+
++ (void)setMatchismoMatchCount:(NSUInteger)matchismoMatchCount;
++ (NSUInteger)matchismoMatchCount;
 
 @end

@@ -54,7 +54,7 @@
         NSString *dateFormated = [NSDateFormatter localizedStringFromDate:result.end
                                                                 dateStyle:NSDateFormatterShortStyle
                                                                 timeStyle:NSDateFormatterShortStyle];
-        NSString *extraInfo = [NSString stringWithFormat:@"(%@, %g0s)\n", dateFormated, round(result.duration)];
+        NSString *extraInfo = [NSString stringWithFormat:@"(%@, %gs)\n", dateFormated, round(result.duration)];
         NSString *puntos = [NSString stringWithFormat:@"Puntos: %3d ", result.score];
         
         NSAttributedString *puntosAttributedString = [[NSAttributedString alloc] initWithString:puntos

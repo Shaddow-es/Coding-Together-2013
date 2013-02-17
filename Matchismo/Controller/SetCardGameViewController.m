@@ -12,11 +12,6 @@
 
 @interface SetCardGameViewController ()
 
-// Propiedades "heredadas"
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (weak, nonatomic) IBOutlet UISlider *historySlider;
-@property (nonatomic, strong) CardMatchingGame *game;
-
 @end
 
 @implementation SetCardGameViewController
@@ -33,21 +28,6 @@
 // ---------------------------------------
 #pragma mark - Private Methods to oimplement in subclass
 
-// Actualiza los controles específicos de cada subclase
-- (void) updateUISpecificCardGame
-{
-    for (UIButton *cardButton in self.cardButtons) {
-        Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
-        
-        [cardButton setAttributedTitle:[self cardAsAttributedString:card] forState:UIControlStateNormal];
-        cardButton.selected = card.isFaceUp;
-        cardButton.enabled = !card.unplayable;
-        cardButton.backgroundColor = (card.isFaceUp) ? [UIColor lightTextColor] : [UIColor whiteColor];
-        
-        // Oculta la carta cuando no es jugable
-        cardButton.hidden = card.unplayable;
-    }
-}
 
 #define DEFAULT_MATCH_MODE 3
 // Devuelve el número de cartas sobre las que se buscarán coincidencias

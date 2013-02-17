@@ -18,9 +18,38 @@
 
 #define SETTINGS_KEY        @"GameSettings"
 #define FLIP_ANIMATED_KEY   @"FlipAnimated"
+#define MATCH_COUNT_KEY     @"MatchismoMatchCount"
 
-// Syntetize necesario por implementar getter y setter
-@synthesize flipAnimated = _flipAnimated;
+#define DEFAULT_ANIMATED        YES
+#define DEFAULT_MATCH_COUNT     2
+
+// ---------------------------------------
+//  -- Public class methods
+// ---------------------------------------
+#pragma mark - Public class methods
+
++ (void) setFlipAnimated:(BOOL)flipAnimated
+{
+    [self updateSettingToUserDefaults:FLIP_ANIMATED_KEY value:[NSNumber numberWithBool:flipAnimated]];
+}
+
++ (BOOL) isFlipAnimated
+{
+    NSMutableDictionary *mutableSettingsFromUserDefaults = [self getSettingsFromUserDefaults];
+    return [(NSNumber *) mutableSettingsFromUserDefaults[FLIP_ANIMATED_KEY] boolValue];
+}
+
++ (void) setMatchismoMatchCount:(NSUInteger)matchismoMatchCount
+{
+    [self updateSettingToUserDefaults:MATCH_COUNT_KEY value:[NSNumber numberWithInt:matchismoMatchCount]];
+}
+
++ (NSUInteger)matchismoMatchCount
+{
+    NSMutableDictionary *mutableSettingsFromUserDefaults = [self getSettingsFromUserDefaults];
+    return [(NSNumber *) mutableSettingsFromUserDefaults[MATCH_COUNT_KEY] integerValue];
+}
+
 
 // ---------------------------------------
 //  -- Private methods
@@ -28,7 +57,7 @@
 #pragma mark - Private methods
 
 // Obtiene una copia del diccionario con las opciones del UserDefaults
-- (NSMutableDictionary *) getSettingsFromUserDefaults
++ (NSMutableDictionary *) getSettingsFromUserDefaults
 {
     // Obtiene el diccionario de las puntuaciones del UserDefaults
     NSMutableDictionary *mutableSettingsFromUserDefaults = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:SETTINGS_KEY] mutableCopy];
@@ -36,34 +65,20 @@
         mutableSettingsFromUserDefaults = [[NSMutableDictionary alloc] init];
 
         // Inicializa los valores por defecto
-        mutableSettingsFromUserDefaults[FLIP_ANIMATED_KEY] = [NSNumber numberWithBool:YES];
+        mutableSettingsFromUserDefaults[FLIP_ANIMATED_KEY] = [NSNumber numberWithBool:DEFAULT_ANIMATED];
+        mutableSettingsFromUserDefaults[MATCH_COUNT_KEY] = [NSNumber numberWithInt:DEFAULT_MATCH_COUNT];
     }
     return mutableSettingsFromUserDefaults;
 }
 
-// ---------------------------------------
-//  -- Getters & Setters
-// ---------------------------------------
-#pragma mark - Getters & Setters
-
-- (void) setFlipAnimated:(BOOL)flipAnimated
++ (void)updateSettingToUserDefaults:(NSString *)setting value:(id)value
 {
-    _flipAnimated = flipAnimated;
     NSMutableDictionary *mutableSettingsFromUserDefaults = [self getSettingsFromUserDefaults];
     // Actualiza el valor de la propiedad en el diccionario
-    mutableSettingsFromUserDefaults[FLIP_ANIMATED_KEY] = [NSNumber numberWithBool:_flipAnimated];
+    mutableSettingsFromUserDefaults[setting] = value;
     // Guarda el diccionario modificado en el UserDefaults
     [[NSUserDefaults standardUserDefaults] setObject:mutableSettingsFromUserDefaults forKey:SETTINGS_KEY];
     [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (BOOL) isFlipAnimated
-{
-    if (!_flipAnimated){
-        NSMutableDictionary *mutableSettingsFromUserDefaults = [self getSettingsFromUserDefaults];
-        _flipAnimated = [(NSNumber *) mutableSettingsFromUserDefaults[FLIP_ANIMATED_KEY] boolValue];
-    }
-    return _flipAnimated;
 }
 
 @end

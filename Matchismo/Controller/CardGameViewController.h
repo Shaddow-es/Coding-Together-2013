@@ -7,11 +7,35 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CardMatchingGame.h"
+#import "Deck.h"
 
 @interface CardGameViewController : UIViewController <UIAlertViewDelegate>
 
-// Inicia una nueva partida
-- (void) startNewGame;
+
+// ---------------------------------------
+//  -- Abstract methods
+// ---------------------------------------
+
+// Crea una nueva baraja de cartas
+- (Deck *)createDeck;
+
+// Actualiza una celda con el contenido de una carta
+- (void)updateCell:(UICollectionViewCell *)cell usingCard:(Card *)card animate:(BOOL)animate;
+
+
+// ---------------------------------------
+//  -- Abstract properties
+// ---------------------------------------
+
+// Número de cartas con las que se inicia la partida
+@property (nonatomic, readonly) NSUInteger startingCardCount;
+// Número de cartas sobre las que buscar coincidencias
+@property (nonatomic, readonly) NSUInteger matchCount;
+// Bonus al marcador cuando se encuentra coincidencia
+@property (nonatomic, readonly) NSUInteger matchBonus;
+// Penalización al marcador cuando se falla una coincidencia
+@property (nonatomic, readonly) NSUInteger mismatchPenalty;
+// Coste por el volteo de la carta
+@property (nonatomic, readonly) NSUInteger flipCost;
 
 @end

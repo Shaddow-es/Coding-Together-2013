@@ -8,15 +8,11 @@
 
 #import "PlayingCardGameViewController.h"
 #import "PlayingCardDeck.h"
+#import "PlayingCard.h"
+#import "PlayingCardCollectionViewCell.h"
+#import "GameSettings.h"
 
 @interface PlayingCardGameViewController ()
-
-// Propiedades "heredadas"
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (weak, nonatomic) IBOutlet UISlider *historySlider;
-@property (nonatomic, strong) CardMatchingGame *game;
-
-@property (weak, nonatomic) IBOutlet UISegmentedControl *gameModeSegControl;
 @end
 
 @implementation PlayingCardGameViewController
@@ -24,86 +20,84 @@
 // ---------------------------------------
 //  -- Private methods (to implement in subclass)
 // ---------------------------------------
+#define STARTING_CARD_COUNT 20
+#define MATCH_COUNT 2
+
 #define MATCH_BONUS 4
 #define MISMATCH_COST_BASE 2
 #define FLIP_COST_BASE 1
 
-// ---------------------------------------
-//  -- Private methods (to implement in subclass)
-// ---------------------------------------
-#pragma mark - Private Methods to oimplement in subclass
+#define FLIP_ANIMATION_DURATION 0.30
 
-// Actualiza los controles específicos de cada subclase
-- (void) updateUISpecificCardGame
+// ---------------------------------------
+//  -- Abstract properties implementation
+// ---------------------------------------
+#pragma mark - Abstract properties implementation
+
+// Número de cartas con las que se inicia la partida
+- (NSUInteger)startingCardCount
 {
-    // Partida empezada muestra el slider, en otro caso el segmento de tipo de juego
-    [self setVisibility:self.historySlider visible:self.game.moves.count > 1];
-    [self setVisibility:self.gameModeSegControl visible:self.game.moves.count <= 1];
-    
-    for (UIButton *cardButton in self.cardButtons) {
-        Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
-        
-        [cardButton setTitle:card.contents forState:UIControlStateNormal];
-        cardButton.selected = card.isFaceUp;
-        cardButton.enabled = !card.unplayable;
-        cardButton.alpha = (card.unplayable) ? 0.3 : 1.0;
-        
-        // Carga la imagen cuando está volteada, la borra EOC
-        UIImage *cardBackImage = (card.isFaceUp) ? nil : [UIImage imageNamed:@"card-back.png"];
-        [cardButton setImage:cardBackImage forState:UIControlStateNormal];
-        // Redondea la imagen
-        cardButton.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
-    }
+    return STARTING_CARD_COUNT;
 }
 
-// Devuelve el número de cartas sobre las que se buscarán coincidencias
-- (int) getMatchCount
+// Número de cartas sobre las que buscar coincidencias
+- (NSUInteger)matchCount
 {
-    return self.gameModeSegControl.selectedSegmentIndex + 2;
+    return [GameSettings matchismoMatchCount];
 }
 
-- (int) getMatchBonus
+// Bonus al marcador cuando se encuentra coincidencia
+- (NSUInteger)matchBonus
 {
     return MATCH_BONUS;
 }
 
-// Cuanto mayor nº cartas, más penalización
-- (int) getMisMatchPenalty
+// Penalización al marcador cuando se falla una coincidencia
+- (NSUInteger)mismatchPenalty
 {
-    return (MISMATCH_COST_BASE * ([self getMatchCount]-1));
+    return (MISMATCH_COST_BASE * (self.matchCount-1));
 }
 
-// Cuanto mayor nº cartas, más coste por voltear
-- (int) getFlipCost
+// Coste por el volteo de la carta
+- (NSUInteger)flipCost
 {
-    return (FLIP_COST_BASE * ([self getMatchCount]-1));
+        return (FLIP_COST_BASE * (self.matchCount-1));
 }
 
-- (Deck *) getDeck
+// ---------------------------------------
+//  -- Abstract methods implementation
+// ---------------------------------------
+#pragma mark - Abstract methods implementation
+
+// Crea una nueva baraja de cartas
+- (Deck *)createDeck
 {
     return [[PlayingCardDeck alloc] init];
 }
 
-// ---------------------------------------
-//  -- Private methods
-// ---------------------------------------
-#pragma mark - Private methods
-
-// Modifica la visibilidad de un control
-- (void) setVisibility:(UIControl *)control visible:(BOOL)visible
+// Actualiza una celda con el contenido de una carta
+- (void)updateCell:(UICollectionViewCell *)cell usingCard:(Card *)card animate:(BOOL)animate
 {
-    control.enabled = visible;
-    control.alpha = (visible) ? 1.0 : 0.0;
-}
-
-// ---------------------------------------
-//  -- Actions
-// ---------------------------------------
-#pragma mark - Actions
-
-// Cambia el modo de juego
-- (IBAction)changeGameMode:(UISegmentedControl *)sender {
-    [self startNewGame];
+    if ([cell isKindOfClass:[PlayingCardCollectionViewCell class]]) {
+        PlayingCardView *playingCardView = ((PlayingCardCollectionViewCell *) cell).playingCardView;
+        if ([card isKindOfClass:[PlayingCard class]]) {
+            PlayingCard *playingCard = (PlayingCard *) card;
+            
+            // Animación de la carta si está siendo volteada
+            if (animate && playingCardView.faceUp!=playingCard.faceUp){
+                [UIView transitionWithView:playingCardView
+                                  duration:FLIP_ANIMATION_DURATION
+                                   options:UIViewAnimationOptionTransitionFlipFromLeft
+                                animations:^{}
+                                completion:NULL];
+            }
+            
+            playingCardView.rank = playingCard.rank;
+            playingCardView.suit = playingCard.suit;
+            playingCardView.faceUp = playingCard.faceUp;
+            playingCardView.alpha = (playingCard.isUnplayable) ? 0.3 : 1.0;
+        }
+    }
 }
 
 @end
