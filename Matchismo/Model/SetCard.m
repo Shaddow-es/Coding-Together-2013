@@ -43,7 +43,7 @@
 {
     static NSArray *validSymbols = nil;
     if (!validSymbols) {
-        validSymbols = @[@"▲", @"●", @"■"];
+        validSymbols = @[@(SetCardSymbolTypeDiamond), @(SetCardSymbolTypeOval), @(SetCardSymbolTypeSquiggle)];
     }
     return validSymbols;
 }
@@ -108,8 +108,8 @@
     if ((card1.number == card2.number) && (card1.number == card3.number)) {
         score += SCORE_MATCH; // todas las cartas tienen el mismo numero
     }
-    if (([card1.symbol isEqualToString:card2.symbol]) &&
-        ([card1.symbol isEqualToString:card3.symbol])) {
+    if ((card1.symbol == card2.symbol) &&
+        (card1.symbol == card3.symbol)) {
         score += SCORE_MATCH; // todas las cartas tienen el mismo símbolo
     }
     if ((card1.shade == card2.shade) &&
@@ -158,9 +158,9 @@
     }
 }
 
-- (void) setSymbol:(NSString *)symbol
+- (void) setSymbol:(SetCardSymbolType)symbol
 {
-    if ([[[self class] validSymbols] containsObject:symbol]) {
+    if ([[[self class] validSymbols] containsObject:@(symbol)]) {
         _symbol = symbol;
     }
 }

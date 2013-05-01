@@ -18,18 +18,36 @@
 //        matchBonus: Bonus otorgado al obtener una coincidencia
 //   missmatchPenaly: Penalización por fallo
 //          flipCost: Coste por voltear una carta
+//       newCardCost: Coste por obtener una nueva carta de la baraja (si hay coincidencias posibles)
+//        removeCard: Indica si las cartas deben ser borradas o no
 - (id) initWithCardCount:(NSUInteger)cardCount
                usingDeck:(Deck *)deck
                matchMode:(NSUInteger)matchCount
               matchBonus:(NSUInteger)matchBonus
-         mismatchPenaly:(NSUInteger)missmatchPenalty
-               flipCost:(NSUInteger)flipCost;
+          mismatchPenaly:(NSUInteger)missmatchPenalty
+                flipCost:(NSUInteger)flipCost
+             newCardCost:(NSUInteger)newCardCost
+             removeCards:(BOOL)removeCards;
+
 
 // Voltea la carta en el lugar indicado
 - (void) flipCardAtIndex:(NSUInteger)index;
 
 // Obtiene la carta del lugar indicado
 - (Card *) cardAtIndex:(NSUInteger)index;
+
+// Pone más cartas en juego
+// Devuelve YES cuando había cartas suficientes, NO cuando no las había
+- (BOOL) playMoreCards:(NSUInteger)cardCount;
+
+// Devuelve el número de cartas en juego
+- (NSUInteger) numberOfCardsInPlay;
+
+// Devuelve un array (of NSIndexPath) con las posiciones de las cartas introducidas 
+- (NSArray *) indexesOfCards:(NSArray *)cards; //of Card
+
+// Elimina las cartas del juego
+- (void) removeCards:(NSArray *)cards; //of Card
 
 // Propiedades de solo lectura
 @property (nonatomic, readonly) int score;

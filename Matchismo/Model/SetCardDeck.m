@@ -19,13 +19,13 @@
     if (self) {
         
         for (NSNumber *number in [SetCard validNumers]) {
-            for (NSString *symbol in [SetCard validSymbols]) {
+            for (NSNumber *symbol in [SetCard validSymbols]) {
                 for (NSNumber *shade in [SetCard validShades]) {
                     for (NSNumber *color in [SetCard validColors]) {
                         SetCard *card = [[SetCard alloc] init];
                         
                         card.number = [number intValue];
-                        card.symbol = symbol;
+                        card.symbol = [symbol intValue];
                         card.shade  = [shade intValue];
                         card.color  = [color intValue];
                         

@@ -18,10 +18,9 @@
 @implementation PlayingCardGameViewController
 
 // ---------------------------------------
-//  -- Private methods (to implement in subclass)
+//  -- Constants
 // ---------------------------------------
-#define STARTING_CARD_COUNT 20
-#define MATCH_COUNT 2
+#define STARTING_CARD_COUNT 22
 
 #define MATCH_BONUS 4
 #define MISMATCH_COST_BASE 2
@@ -64,6 +63,12 @@
         return (FLIP_COST_BASE * (self.matchCount-1));
 }
 
+// Indica si se han de borrar las cartas que ya se encontro coincidencia
+- (BOOL)removeCards
+{
+    return NO;
+}
+
 // ---------------------------------------
 //  -- Abstract methods implementation
 // ---------------------------------------
@@ -98,6 +103,26 @@
             playingCardView.alpha = (playingCard.isUnplayable) ? 0.3 : 1.0;
         }
     }
+}
+
+// Devuelve un string con formato con el contenido de la carta
+- (NSAttributedString *) cardAsAttributedString:(Card *)card
+{
+    NSString *str = [NSString stringWithFormat:@"%@", card.contents];
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:str];
+    NSRange range = NSMakeRange(0, [str length]);
+    [attributedString addAttribute:NSForegroundColorAttributeName
+                             value:[UIColor whiteColor]
+                             range:range];
+    
+    return attributedString;
+}
+
+// Devuelve el identificador de la celda (UICollectionViewCell)
+- (NSString *)collectionViewCellIdentifier
+{
+    return @"PlayingCard";
 }
 
 @end

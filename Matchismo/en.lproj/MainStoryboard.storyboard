@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="tIf-R2-fZZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="tIf-R2-fZZ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -12,23 +12,27 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="411"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Volteos: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vz8-aF-5ss">
-                                <rect key="frame" x="24" y="380" width="102" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Volteos: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vz8-aF-5ss">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="102" id="d81-y5-bKH"/>
+                                    <constraint firstAttribute="height" constant="21" id="wB4-ym-xOi"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text=" Puntos: 0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eGg-PT-Pou">
-                                <rect key="frame" x="200" y="380" width="96" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text=" Puntos: 0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGg-PT-Pou">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="96" id="zXp-8a-BPK"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="egu-IV-m0K">
-                                <rect key="frame" x="24" y="351" width="272" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="egu-IV-m0K">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Kzv-kz-XYP"/>
+                                </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="Empezar partida!">
                                         <attributes>
@@ -40,9 +44,11 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" id="GcA-Zq-tYZ">
-                                <rect key="frame" x="111" y="370" width="103" height="54"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GcA-Zq-tYZ">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="103" id="gFo-Tm-m8c"/>
+                                    <constraint firstAttribute="height" constant="45" id="p6f-fV-bdx"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="dealdeck.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -55,9 +61,10 @@
                                     <action selector="deal:" destination="2" eventType="touchUpInside" id="8Tj-x6-sFq"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="1" id="nR6-Xa-YeA">
-                                <rect key="frame" x="22" y="7" width="276" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="nR6-Xa-YeA">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="272" id="2B5-zz-z4W"/>
+                                </constraints>
                                 <color key="minimumTrackTintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="maximumTrackTintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="thumbTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -65,11 +72,12 @@
                                     <action selector="travelHistory:" destination="2" eventType="valueChanged" id="LTb-l4-7Do"/>
                                 </connections>
                             </slider>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Q6K-z4-EUf">
-                                <rect key="frame" x="24" y="44" width="272" height="299"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Q6K-z4-EUf">
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="293" id="mtk-og-dAQ"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="3" minimumInteritemSpacing="3" id="LQj-5d-jLu">
                                     <size key="itemSize" width="65" height="89"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -84,15 +92,19 @@
                                             <rect key="frame" x="0.0" y="0.0" width="65" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view opaque="NO" contentMode="scaleToFill" id="7sv-el-lUE" customClass="PlayingCardView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="65" height="89"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7sv-el-lUE" customClass="PlayingCardView">
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="7sv-el-lUE" firstAttribute="leading" secondItem="rrk-Xr-gSG" secondAttribute="leading" type="default" id="YNI-8j-IGo"/>
+                                            <constraint firstItem="7sv-el-lUE" firstAttribute="top" secondItem="rrk-Xr-gSG" secondAttribute="top" type="default" id="ZEj-5Z-WHh"/>
+                                            <constraint firstItem="7sv-el-lUE" firstAttribute="bottom" secondItem="rrk-Xr-gSG" secondAttribute="bottom" type="default" id="cjt-uK-lmn"/>
+                                            <constraint firstItem="7sv-el-lUE" firstAttribute="trailing" secondItem="rrk-Xr-gSG" secondAttribute="trailing" type="default" id="sA9-KW-Ece"/>
+                                        </constraints>
                                         <size key="customSize" width="65" height="89"/>
                                         <connections>
                                             <outlet property="playingCardView" destination="7sv-el-lUE" id="mUO-ps-N9w"/>
@@ -106,6 +118,23 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="0.084170855852691698" green="0.373046875" blue="0.18675973683659239" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="eGg-PT-Pou" firstAttribute="trailing" secondItem="egu-IV-m0K" secondAttribute="trailing" type="default" id="56k-Q5-vj7"/>
+                            <constraint firstItem="egu-IV-m0K" firstAttribute="top" secondItem="Q6K-z4-EUf" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="BRt-cz-FWR"/>
+                            <constraint firstItem="Q6K-z4-EUf" firstAttribute="trailing" secondItem="nR6-Xa-YeA" secondAttribute="trailing" type="default" id="DKs-L5-jdZ"/>
+                            <constraint firstItem="Q6K-z4-EUf" firstAttribute="leading" secondItem="egu-IV-m0K" secondAttribute="leading" type="default" id="Hyn-F3-H1B"/>
+                            <constraint firstItem="Q6K-z4-EUf" firstAttribute="leading" secondItem="nR6-Xa-YeA" secondAttribute="leading" type="default" id="Jmh-34-Qpe"/>
+                            <constraint firstItem="egu-IV-m0K" firstAttribute="leading" secondItem="Vz8-aF-5ss" secondAttribute="leading" type="default" id="Llr-Al-VQU"/>
+                            <constraint firstItem="nR6-Xa-YeA" firstAttribute="top" secondItem="3" secondAttribute="top" constant="20" symbolic="YES" type="default" id="UfS-7z-2ux"/>
+                            <constraint firstItem="eGg-PT-Pou" firstAttribute="top" secondItem="egu-IV-m0K" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Z0H-ob-KDp"/>
+                            <constraint firstItem="GcA-Zq-tYZ" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="aWq-fT-5Yy"/>
+                            <constraint firstItem="egu-IV-m0K" firstAttribute="centerX" secondItem="3" secondAttribute="centerX" type="default" id="bqm-7b-sS5"/>
+                            <constraint firstItem="Vz8-aF-5ss" firstAttribute="top" secondItem="egu-IV-m0K" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="flA-fg-zxN"/>
+                            <constraint firstItem="eGg-PT-Pou" firstAttribute="baseline" secondItem="Vz8-aF-5ss" secondAttribute="baseline" type="default" id="hT3-z2-60Z"/>
+                            <constraint firstItem="Q6K-z4-EUf" firstAttribute="top" secondItem="nR6-Xa-YeA" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="iuU-e8-V12"/>
+                            <constraint firstItem="GcA-Zq-tYZ" firstAttribute="centerX" secondItem="egu-IV-m0K" secondAttribute="centerX" type="default" id="ssl-sZ-yqM"/>
+                            <constraint firstItem="Q6K-z4-EUf" firstAttribute="trailing" secondItem="egu-IV-m0K" secondAttribute="trailing" type="default" id="wgZ-vk-oIg"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Matchismo" image="iconMatchismo.png" id="4Vf-rD-WCo"/>
                     <connections>
@@ -155,9 +184,7 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="411"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" id="hX7-XH-ttg">
-                                <rect key="frame" x="20" y="57" width="280" height="334"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hX7-XH-ttg">
                                 <attributedString key="attributedText">
                                     <fragment content="Score: 25 (23/10/13 4:pm, 35s)">
                                         <attributes>
@@ -169,9 +196,10 @@
                                 </attributedString>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="NNo-3S-joQ">
-                                <rect key="frame" x="24" y="20" width="272" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NNo-3S-joQ">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="272" id="fYw-MR-UJd"/>
+                                </constraints>
                                 <segments>
                                     <segment title="Fecha"/>
                                     <segment title="Puntuación"/>
@@ -185,6 +213,14 @@
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="0.084170855850000004" green="0.373046875" blue="0.18675973679999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="hX7-XH-ttg" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="8PY-ze-Vuy"/>
+                            <constraint firstItem="NNo-3S-joQ" firstAttribute="centerX" secondItem="hX7-XH-ttg" secondAttribute="centerX" type="default" id="Mpi-C9-8vi"/>
+                            <constraint firstItem="NNo-3S-joQ" firstAttribute="top" secondItem="PjU-Qj-4EA" secondAttribute="top" constant="20" symbolic="YES" type="default" id="OGH-fh-C3O"/>
+                            <constraint firstItem="hX7-XH-ttg" firstAttribute="leading" secondItem="PjU-Qj-4EA" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Xjw-KG-S1g"/>
+                            <constraint firstAttribute="bottom" secondItem="hX7-XH-ttg" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="lIp-vZ-aqo"/>
+                            <constraint firstItem="hX7-XH-ttg" firstAttribute="top" secondItem="NNo-3S-joQ" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="w6G-7A-Gbc"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Puntuación" image="iconScore.png" id="RLu-IV-ZPJ"/>
                     <connections>
@@ -203,30 +239,26 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="411"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="eaG-z6-Lbx">
-                                <rect key="frame" x="223" y="73" width="79" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eaG-z6-Lbx">
                                 <connections>
                                     <action selector="changeFlipAnimation:" destination="oGV-0C-kNc" eventType="valueChanged" id="CNY-Bl-BD3"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Volteo de cartas animado" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="c6o-4R-gqu">
-                                <rect key="frame" x="20" y="76" width="193" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Volteo de cartas animado" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6o-4R-gqu">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <navigationBar contentMode="scaleToFill" barStyle="blackOpaque" id="rB3-r2-kWA">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <navigationBar contentMode="scaleToFill" barStyle="blackOpaque" translatesAutoresizingMaskIntoConstraints="NO" id="rB3-r2-kWA">
                                 <items>
                                     <navigationItem title="Configuración" id="9bY-Jl-4L0"/>
                                 </items>
                             </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Klf-9T-ojp">
-                                <rect key="frame" x="212" y="231" width="88" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Klf-9T-ojp">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="dy0-Ki-tot"/>
+                                    <constraint firstAttribute="width" constant="88" id="vfa-z7-ewJ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                                 <state key="normal" title="Resetear">
                                     <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
@@ -239,21 +271,20 @@
                                     <action selector="resetGameResult" destination="oGV-0C-kNc" eventType="touchUpInside" id="C8z-Dv-TNB"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Historial de puntuación" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fjP-iO-USx">
-                                <rect key="frame" x="20" y="236" width="173" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Historial de puntuación" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fjP-iO-USx">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.80000000000000004" contentMode="scaleToFill" usesAttributedText="YES" id="GvF-0v-WQU">
-                                <rect key="frame" x="20" y="303" width="280" height="88"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.80000000000000004" contentMode="scaleToFill" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GvF-0v-WQU">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="88" id="z31-7M-vTb"/>
+                                </constraints>
                                 <attributedString key="attributedText">
                                     <fragment>
                                         <string key="content">Matchimo 1.0
-Assignment 2
+Assignment 3
 Coding together 2013</string>
                                         <attributes>
                                             <color key="NSColor" red="0.023529414087533951" green="0.0039215688593685627" blue="0.0039215688593685627" alpha="1" colorSpace="deviceRGB"/>
@@ -265,9 +296,10 @@ Coding together 2013</string>
                                 </attributedString>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="waK-Ei-9ij">
-                                <rect key="frame" x="39" y="168" width="243" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="waK-Ei-9ij">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="243" id="GYL-ms-xys"/>
+                                </constraints>
                                 <segments>
                                     <segment title="2 Cartas"/>
                                     <segment title="3 Cartas"/>
@@ -279,15 +311,33 @@ Coding together 2013</string>
                                     <action selector="changeGameMode:" destination="oGV-0C-kNc" eventType="valueChanged" id="YrE-5f-AKy"/>
                                 </connections>
                             </segmentedControl>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Modo juego en matchismo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0jT-3E-QNM">
-                                <rect key="frame" x="20" y="139" width="200" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Modo juego en matchismo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jT-3E-QNM">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.084170855850000004" green="0.373046875" blue="0.18675973679999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="0jT-3E-QNM" firstAttribute="leading" secondItem="Xh8-dd-w4b" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="2sI-u8-T3I"/>
+                            <constraint firstItem="c6o-4R-gqu" firstAttribute="leading" secondItem="Xh8-dd-w4b" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="6W3-Ar-PXd"/>
+                            <constraint firstItem="rB3-r2-kWA" firstAttribute="top" secondItem="Xh8-dd-w4b" secondAttribute="top" type="default" id="6cm-Np-wkq"/>
+                            <constraint firstItem="c6o-4R-gqu" firstAttribute="centerY" secondItem="eaG-z6-Lbx" secondAttribute="centerY" type="default" id="AUt-jy-556"/>
+                            <constraint firstItem="waK-Ei-9ij" firstAttribute="centerX" secondItem="rB3-r2-kWA" secondAttribute="centerX" type="default" id="F8f-Rl-Thq"/>
+                            <constraint firstItem="Klf-9T-ojp" firstAttribute="baseline" secondItem="fjP-iO-USx" secondAttribute="baseline" type="default" id="FD4-Wx-VnX"/>
+                            <constraint firstItem="rB3-r2-kWA" firstAttribute="trailing" secondItem="Xh8-dd-w4b" secondAttribute="trailing" type="default" id="FdZ-do-viq"/>
+                            <constraint firstItem="rB3-r2-kWA" firstAttribute="leading" secondItem="Xh8-dd-w4b" secondAttribute="leading" type="default" id="JsB-hF-d1B"/>
+                            <constraint firstAttribute="trailing" secondItem="eaG-z6-Lbx" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="LVR-dc-Kk2"/>
+                            <constraint firstAttribute="bottom" secondItem="GvF-0v-WQU" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="Lwf-BA-S6V"/>
+                            <constraint firstAttribute="trailing" secondItem="GvF-0v-WQU" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="Shd-Nf-fLZ"/>
+                            <constraint firstItem="fjP-iO-USx" firstAttribute="leading" secondItem="Xh8-dd-w4b" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="VRd-Zu-tEe"/>
+                            <constraint firstAttribute="trailing" secondItem="Klf-9T-ojp" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="hfO-2Q-gDd"/>
+                            <constraint firstItem="eaG-z6-Lbx" firstAttribute="top" secondItem="Xh8-dd-w4b" secondAttribute="top" constant="73" id="ioB-Md-Nav"/>
+                            <constraint firstItem="0jT-3E-QNM" firstAttribute="top" secondItem="Xh8-dd-w4b" secondAttribute="top" constant="139" id="qzL-gL-gDY"/>
+                            <constraint firstItem="GvF-0v-WQU" firstAttribute="leading" secondItem="Xh8-dd-w4b" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="rcy-p0-vzK"/>
+                            <constraint firstItem="waK-Ei-9ij" firstAttribute="top" secondItem="0jT-3E-QNM" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="z6K-b2-yQ1"/>
+                            <constraint firstAttribute="bottom" secondItem="Klf-9T-ojp" secondAttribute="bottom" constant="148" id="zeN-DX-3Fz"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Configuración" image="iconSettings.png" id="kBP-fK-H2M"/>
                     <connections>
@@ -307,215 +357,27 @@ Coding together 2013</string>
                         <rect key="frame" x="0.0" y="20" width="320" height="411"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="hA4-Sy-BFC">
-                                <rect key="frame" x="24" y="39" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="YvK-0K-6dI"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="4Pg-YB-kgv">
-                                <rect key="frame" x="95" y="39" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="Kc4-BM-GvG"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="vZh-tn-4oo">
-                                <rect key="frame" x="167" y="39" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="UXN-FM-3U8"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="rVQ-9Z-nce">
-                                <rect key="frame" x="240" y="39" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="EBP-ko-RzW"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="E6V-FH-EUS">
-                                <rect key="frame" x="24" y="92" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="6qI-hx-jjS"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="HkL-B8-0Eg">
-                                <rect key="frame" x="95" y="92" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="CnS-cV-IBD"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="JXU-9N-Tov">
-                                <rect key="frame" x="167" y="92" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="4wh-lK-YQB"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="ZWJ-ce-Bo8">
-                                <rect key="frame" x="240" y="92" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="NvN-Y6-K16"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="6Te-ab-Lga">
-                                <rect key="frame" x="24" y="145" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="36x-G5-383"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="I7f-tL-MyO">
-                                <rect key="frame" x="95" y="145" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="haC-Xy-Wbd"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="igS-8J-iqR">
-                                <rect key="frame" x="167" y="145" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="qJP-xl-kwm"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="kdu-GT-Iqf">
-                                <rect key="frame" x="240" y="145" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="YPz-JR-QCZ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="h8x-Ct-0Iq">
-                                <rect key="frame" x="24" y="198" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="bXP-FT-rFJ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="xAB-G4-q6O">
-                                <rect key="frame" x="95" y="198" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="xNk-ZE-isA"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="8nK-jh-qJ7">
-                                <rect key="frame" x="167" y="198" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="rIl-b6-5l5"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="1RS-4T-oLZ">
-                                <rect key="frame" x="240" y="198" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="oRR-Eb-5PY"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Volteos: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AyN-k4-T3V">
-                                <rect key="frame" x="24" y="380" width="102" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Volteos: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AyN-k4-T3V">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="102" id="Mnr-Vw-mTV"/>
+                                    <constraint firstAttribute="height" constant="21" id="NfB-oP-RvD"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text=" Puntos: 0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CTd-Lu-bVT">
-                                <rect key="frame" x="200" y="380" width="96" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text=" Puntos: 0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CTd-Lu-bVT">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="96" id="OmH-Om-Pyi"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="cpT-rN-qHT">
-                                <rect key="frame" x="24" y="351" width="272" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="cpT-rN-qHT">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="hUd-Gr-B8h"/>
+                                </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="Empezar partida!">
                                         <attributes>
@@ -527,9 +389,11 @@ Coding together 2013</string>
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" id="Ao6-9L-5TU">
-                                <rect key="frame" x="111" y="370" width="103" height="54"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ao6-9L-5TU">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="AOL-mp-VKI"/>
+                                    <constraint firstAttribute="width" constant="81" id="TFM-Q9-Mx4"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="dealdeck.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -542,105 +406,10 @@ Coding together 2013</string>
                                     <action selector="deal:" destination="L9L-5E-sOe" eventType="touchUpInside" id="VTV-LS-Yyq"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="52h-1H-HIO">
-                                <rect key="frame" x="24" y="251" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="X6i-In-CkO"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="Kgc-9q-UaE">
-                                <rect key="frame" x="95" y="251" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="vXy-me-hEw"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="v2i-E4-wb4">
-                                <rect key="frame" x="167" y="251" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="yXS-YR-2ef"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="fXc-Dh-tv0">
-                                <rect key="frame" x="240" y="251" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="jBY-D5-oVd"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="TPs-YB-ERL">
-                                <rect key="frame" x="24" y="304" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="RVz-xX-T9a"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="ZvA-Gb-K8D">
-                                <rect key="frame" x="95" y="304" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="sm8-kt-fCT"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="VI1-dp-1F4">
-                                <rect key="frame" x="167" y="304" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="icf-3o-uwa"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="sAm-Dw-4j8">
-                                <rect key="frame" x="240" y="304" width="56" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipCard:" destination="L9L-5E-sOe" eventType="touchUpInside" id="WG5-lg-69p"/>
-                                </connections>
-                            </button>
-                            <slider opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="1" id="hCY-Cn-HOZ">
-                                <rect key="frame" x="22" y="7" width="276" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <slider opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="hCY-Cn-HOZ">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="272" id="zWh-oG-x66"/>
+                                </constraints>
                                 <color key="minimumTrackTintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="maximumTrackTintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="thumbTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -648,42 +417,104 @@ Coding together 2013</string>
                                     <action selector="travelHistory:" destination="L9L-5E-sOe" eventType="valueChanged" id="g4s-6R-VGl"/>
                                 </connections>
                             </slider>
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gLJ-pp-fdc">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="306" id="MLm-7o-ch1"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sTT-cO-Rca">
+                                    <size key="itemSize" width="60" height="80"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="SetCard" id="hVd-ly-xsE" customClass="SetCardCollectionViewCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="60" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="87g-O3-Iuf" customClass="SetCardView">
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstItem="87g-O3-Iuf" firstAttribute="leading" secondItem="hVd-ly-xsE" secondAttribute="leading" type="default" id="CWd-P2-ESv"/>
+                                            <constraint firstItem="87g-O3-Iuf" firstAttribute="bottom" secondItem="hVd-ly-xsE" secondAttribute="bottom" type="default" id="XeY-yY-bqT"/>
+                                            <constraint firstItem="87g-O3-Iuf" firstAttribute="trailing" secondItem="hVd-ly-xsE" secondAttribute="trailing" type="default" id="YJ4-1j-MKr"/>
+                                            <constraint firstItem="87g-O3-Iuf" firstAttribute="top" secondItem="hVd-ly-xsE" secondAttribute="top" type="default" id="xGi-5u-Sse"/>
+                                        </constraints>
+                                        <size key="customSize" width="60" height="80"/>
+                                        <connections>
+                                            <outlet property="setCardView" destination="87g-O3-Iuf" id="pcW-HU-zR6"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="L9L-5E-sOe" id="mvr-Gj-vdY"/>
+                                    <outletCollection property="gestureRecognizers" destination="ZXg-Cz-2Vj" appends="YES" id="eMH-Jd-N0d"/>
+                                </connections>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yFI-Jf-ZEf">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33" id="Nte-S9-1pt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="+3">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dealMoreCards:" destination="L9L-5E-sOe" eventType="touchUpInside" id="rOn-mX-msE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.084170855850000004" green="0.373046875" blue="0.18675973679999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="cpT-rN-qHT" firstAttribute="leading" secondItem="AyN-k4-T3V" secondAttribute="leading" type="default" id="30Z-It-JSl"/>
+                            <constraint firstItem="AyN-k4-T3V" firstAttribute="top" secondItem="cpT-rN-qHT" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="3NJ-8l-1t9"/>
+                            <constraint firstItem="cpT-rN-qHT" firstAttribute="top" secondItem="gLJ-pp-fdc" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="5LH-ye-FyA"/>
+                            <constraint firstItem="gLJ-pp-fdc" firstAttribute="top" secondItem="hCY-Cn-HOZ" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="8Lb-Uk-Uei"/>
+                            <constraint firstItem="CTd-Lu-bVT" firstAttribute="top" secondItem="cpT-rN-qHT" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Co0-wr-D0p"/>
+                            <constraint firstItem="gLJ-pp-fdc" firstAttribute="leading" secondItem="4Zl-KF-K9h" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Dg9-rW-Kv9"/>
+                            <constraint firstItem="hCY-Cn-HOZ" firstAttribute="top" secondItem="4Zl-KF-K9h" secondAttribute="top" constant="7" id="JFJ-YB-yii"/>
+                            <constraint firstItem="hCY-Cn-HOZ" firstAttribute="leading" secondItem="cpT-rN-qHT" secondAttribute="leading" type="default" id="LBx-NB-JPc"/>
+                            <constraint firstItem="Ao6-9L-5TU" firstAttribute="top" secondItem="4Zl-KF-K9h" secondAttribute="top" constant="370" id="Y40-ID-oX1"/>
+                            <constraint firstItem="yFI-Jf-ZEf" firstAttribute="top" secondItem="cpT-rN-qHT" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="erb-7l-xJ6"/>
+                            <constraint firstItem="CTd-Lu-bVT" firstAttribute="baseline" secondItem="AyN-k4-T3V" secondAttribute="baseline" type="default" id="fnc-v3-hji"/>
+                            <constraint firstItem="hCY-Cn-HOZ" firstAttribute="trailing" secondItem="cpT-rN-qHT" secondAttribute="trailing" type="default" id="pRu-Xk-TqP"/>
+                            <constraint firstAttribute="trailing" secondItem="CTd-Lu-bVT" secondAttribute="trailing" constant="11" id="q3D-jz-Ko0"/>
+                            <constraint firstAttribute="trailing" secondItem="gLJ-pp-fdc" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="sMm-Qa-cc7"/>
+                            <constraint firstItem="Ao6-9L-5TU" firstAttribute="leading" secondItem="4Zl-KF-K9h" secondAttribute="leading" constant="111" id="tKM-S7-vhC"/>
+                            <constraint firstItem="yFI-Jf-ZEf" firstAttribute="leading" secondItem="4Zl-KF-K9h" secondAttribute="leading" constant="193" id="wdE-xI-zj4"/>
+                            <constraint firstItem="gLJ-pp-fdc" firstAttribute="centerX" secondItem="cpT-rN-qHT" secondAttribute="centerX" type="default" id="yix-fq-iH5"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Set" image="iconSet.png" id="9vz-Wg-6RY"/>
                     <connections>
+                        <outlet property="cardCollectionView" destination="gLJ-pp-fdc" id="PgE-kw-dDy"/>
                         <outlet property="flipsLabel" destination="AyN-k4-T3V" id="exZ-Ah-764"/>
                         <outlet property="historySlider" destination="hCY-Cn-HOZ" id="jSf-hM-0il"/>
                         <outlet property="lastActionLabel" destination="cpT-rN-qHT" id="1lw-wC-pA5"/>
                         <outlet property="scoreLabel" destination="CTd-Lu-bVT" id="lb7-78-cOD"/>
-                        <outletCollection property="cardButtons" destination="hA4-Sy-BFC" id="i5N-RM-atb"/>
-                        <outletCollection property="cardButtons" destination="4Pg-YB-kgv" id="RPD-il-hXm"/>
-                        <outletCollection property="cardButtons" destination="vZh-tn-4oo" id="zQZ-JO-6j2"/>
-                        <outletCollection property="cardButtons" destination="rVQ-9Z-nce" id="haG-xi-2bG"/>
-                        <outletCollection property="cardButtons" destination="E6V-FH-EUS" id="MgM-lA-Dbz"/>
-                        <outletCollection property="cardButtons" destination="HkL-B8-0Eg" id="dLS-f8-dha"/>
-                        <outletCollection property="cardButtons" destination="JXU-9N-Tov" id="Dq8-Xd-iES"/>
-                        <outletCollection property="cardButtons" destination="ZWJ-ce-Bo8" id="Djs-Vj-XoS"/>
-                        <outletCollection property="cardButtons" destination="6Te-ab-Lga" id="M38-db-Fiw"/>
-                        <outletCollection property="cardButtons" destination="I7f-tL-MyO" id="zDA-ft-37u"/>
-                        <outletCollection property="cardButtons" destination="igS-8J-iqR" id="FYx-ym-fgd"/>
-                        <outletCollection property="cardButtons" destination="kdu-GT-Iqf" id="qJ1-Sf-rGi"/>
-                        <outletCollection property="cardButtons" destination="h8x-Ct-0Iq" id="9TL-fI-Du5"/>
-                        <outletCollection property="cardButtons" destination="xAB-G4-q6O" id="wMn-ZK-YKp"/>
-                        <outletCollection property="cardButtons" destination="8nK-jh-qJ7" id="8iv-5V-XMK"/>
-                        <outletCollection property="cardButtons" destination="1RS-4T-oLZ" id="dKT-BX-1wr"/>
-                        <outletCollection property="cardButtons" destination="52h-1H-HIO" id="bJX-ey-FqH"/>
-                        <outletCollection property="cardButtons" destination="Kgc-9q-UaE" id="Oeo-nQ-M9h"/>
-                        <outletCollection property="cardButtons" destination="v2i-E4-wb4" id="dHo-7G-EgE"/>
-                        <outletCollection property="cardButtons" destination="fXc-Dh-tv0" id="zC9-IA-5C9"/>
-                        <outletCollection property="cardButtons" destination="TPs-YB-ERL" id="LU4-Yh-pha"/>
-                        <outletCollection property="cardButtons" destination="ZvA-Gb-K8D" id="H6k-LI-lCw"/>
-                        <outletCollection property="cardButtons" destination="VI1-dp-1F4" id="XUT-eH-Top"/>
-                        <outletCollection property="cardButtons" destination="sAm-Dw-4j8" id="cEy-G3-HJ6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zkR-gV-Ex2" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="ZXg-Cz-2Vj">
+                    <connections>
+                        <action selector="flipCard:" destination="L9L-5E-sOe" id="Qkx-FU-XVu"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-7" y="138"/>
         </scene>
@@ -695,59 +526,6 @@ Coding together 2013</string>
         <image name="iconSet.png" width="30" height="30"/>
         <image name="iconSettings.png" width="30" height="30"/>
     </resources>
-    <classes>
-        <class className="CardGameViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CardGameViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="deal:" candidateClass="UIButton"/>
-                <relationship kind="action" name="flipCard:" candidateClass="UITapGestureRecognizer"/>
-                <relationship kind="action" name="travelHistory:" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="cardCollectionView" candidateClass="UICollectionView"/>
-                <relationship kind="outlet" name="flipsLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="historySlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="lastActionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scoreLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="GameResultViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GameResultViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changeSortMode:" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="display" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="PlayingCardCollectionViewCell" superclassName="UICollectionViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlayingCardCollectionViewCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="playingCardView" candidateClass="PlayingCardView"/>
-            </relationships>
-        </class>
-        <class className="PlayingCardGameViewController" superclassName="CardGameViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlayingCardGameViewController.h"/>
-        </class>
-        <class className="PlayingCardView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlayingCardView.h"/>
-        </class>
-        <class className="SetCardGameViewController" superclassName="CardGameViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SetCardGameViewController.h"/>
-        </class>
-        <class className="SettingsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="flipAnimatedSwitch" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="matchModeSegmentedControl" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="UICollectionReusableView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionReusableView.h"/>
-        </class>
-        <class className="UICollectionViewCell" superclassName="UICollectionReusableView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewCell.h"/>
-        </class>
-        <class className="UICollectionViewFlowLayout" superclassName="UICollectionViewLayout">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewFlowLayout.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -13,16 +13,19 @@
 @interface CardMatchingGame ()
 // Propiedades privadas
 @property (strong, nonatomic) NSMutableArray *cards; // of Card
+@property (strong, nonatomic) Deck *deck;
 // La puntuación la almacenamos en la propiedad gameResult
 @property (nonatomic, readwrite) GameResult *gameResult;
 @property (strong, nonatomic, readwrite) NSMutableArray *moves; // of CardMove
 @property (nonatomic, readwrite) int matchMode;
 @property (nonatomic, readwrite, getter = isGameOver) BOOL gameOver;
 
-// Propiedades para los costes
+// Propiedades privadas
 @property (nonatomic, readonly) NSUInteger matchBonus;
 @property (nonatomic, readonly) NSUInteger flipCost;
+@property (nonatomic, readonly) NSUInteger newCardCost;
 @property (nonatomic, readonly) NSUInteger mismatchPenalty;
+@property (nonatomic, readonly, getter = canRemoveCards) BOOL removeCards;
 @end
 
 @implementation CardMatchingGame
@@ -43,18 +46,31 @@
 //         matchMode: Número de cartas sobre las que buscar coincidencias
 //        matchBonus: Bonus otorgado al obtener una coincidencia
 //   missmatchPenaly: Penalización por fallo
+//       newCardCost: Coste por obtener una nueva carta de la baraja (si hay coincidencias posibles)
 //          flipCost: Coste por voltear una carta
 - (id) initWithCardCount:(NSUInteger)cardCount
                usingDeck:(Deck *)deck
                matchMode:(NSUInteger)matchCount
               matchBonus:(NSUInteger)matchBonus
           mismatchPenaly:(NSUInteger)missmatchPenalty
-                flipCost:(NSUInteger)flipCost {
+                flipCost:(NSUInteger)flipCost
+             newCardCost:(NSUInteger)newCardCost
+             removeCards:(BOOL)removeCards {
     self = [super init];
     
     if (self){
+        _deck = deck;
+        _matchMode = matchCount;
+        _gameOver = NO;
+        _gameResult = nil;
+        _matchBonus = matchBonus;
+        _mismatchPenalty = missmatchPenalty;
+        _flipCost = flipCost;
+        _newCardCost = newCardCost;
+        _removeCards = removeCards;
+        
         for (int i = 0; i < cardCount; i++) {
-            Card *card = [deck drawRandomCard];
+            Card *card = [_deck drawRandomCard];
             // Proteccion por si nos quedamos sin cartas en la baraja
             // Al añadir un nil a un array se produce un error
             if (card){
@@ -64,13 +80,6 @@
                 break; // Inncecesario??? pq las llamadas a métodos sobre nil no casca
             }
         }
-        
-        _matchMode = matchCount;
-        _gameOver = NO;
-        _gameResult = nil;
-        _matchBonus = matchBonus;
-        _mismatchPenalty = missmatchPenalty;
-        _flipCost = flipCost;
     }
     
     return self;
@@ -135,37 +144,74 @@
     }
 }
 
-
-// Comprueba si el juego ha terminado
-- (BOOL) checkGameIsOver
+// Pone más cartas en juego
+// Devuelve YES cuando había cartas suficientes, NO cuando no las había
+- (BOOL) playMoreCards:(NSUInteger)cardCount
 {
-    // Obtiene todas las cartas en juego
-    NSMutableArray *cardsNotFaceUp = [[NSMutableArray alloc] init];
-    for (Card *card in self.cards) {
-        if (!card.isUnplayable){
-            [cardsNotFaceUp addObject:card];
-        }
-    }
+    NSMutableArray *newCards = [NSMutableArray array];
+    int score = 0;
+    BOOL isMatchPosible = [self isMatchPosible];
     
-    // Si hay menos cartas en juego que las requeridas -> Fin del juego
-    if (cardsNotFaceUp && (cardsNotFaceUp.count < self.matchMode)) {
-        // Pone visibles todas las cartas no jugables
-        [self markCards:cardsNotFaceUp unplayable:NO faceUp:YES];
-        return YES;
-    }
-    
-    // Para todas las cartas en juego comprueba si hay coincidencia    
-    for (Card *card in cardsNotFaceUp) {
-        NSMutableArray *othersCards = [NSMutableArray arrayWithArray:cardsNotFaceUp];
-        [othersCards removeObject:card];
-        if ([card match:othersCards]){
+    for (int i = 0; i < cardCount; i++) {
+        Card *card = [self.deck drawRandomCard];
+        // Proteccion por si nos quedamos sin cartas en la baraja
+        // Al añadir un nil a un array se produce un error
+        if (card){
+            [newCards addObject:card];
+            // Si aún hay coincidencias posibles y se pidieron cartas nuevas, penaliza!
+            if (![self checkGameIsOver]) {
+                score -= self.newCardCost;
+            }
+            [self.cards addObject:card];
+        }else{
             return NO;
         }
     }
     
-    // Pone visibles todas las cartas no jugables
-    [self markCards:cardsNotFaceUp unplayable:NO faceUp:YES];
+    score = (isMatchPosible) ? score : 0;
+    self.score += score;
+    CardMove *cardMove = [[CardMove alloc] initWithActionType:CardMoveTypePlayMoreCards
+                                                       score:score
+                                                       cards:newCards];
+    [self.moves addObject:cardMove];
     return YES;
+}
+
+// Devuelve el número de cartas en juego
+- (NSUInteger) numberOfCardsInPlay
+{
+    NSUInteger count = 0;
+    for (Card *card in self.cards) {
+        if (!card.isUnplayable){
+            count++;
+        }
+    }
+    return count;
+}
+
+
+// Devuelve un array con las posiciones de las cartas introducidas
+- (NSArray *) indexesOfCards:(NSArray *)cards
+{
+    NSMutableArray *indexes = [NSMutableArray array];
+    
+    for (Card *card in cards) {
+        NSUInteger index = [self.cards indexOfObject:card];
+        [indexes addObject:[NSIndexPath indexPathForItem:index inSection:0]];
+    }
+    
+    return indexes;
+}
+
+
+// Elimina las cartas del juego
+- (void) removeCards:(NSArray *)cards
+{
+    if (self.removeCards){
+        for (Card *card in cards) {
+            [self.cards removeObject:card];
+        }
+    }
 }
 
 // ---------------------------------------
@@ -194,6 +240,61 @@
         [otherCard setUnplayable:unplayable];
         [otherCard setFaceUp:faceUp];
     }
+}
+
+// Comprueba si el juego ha terminado
+- (BOOL) checkGameIsOver
+{
+    // Si se pueden repartir cartas y hay cartas en la baraja, el juego no ha acabado
+    if (self.removeCards && ([self.deck count] > 0) ) {
+        return NO;
+    }
+    
+    // Obtiene todas las cartas en juego
+    NSArray *cardsNotFaceUp = [self cardsNotFaceUp];
+    
+    // Si hay menos cartas en juego que las requeridas -> Fin del juego
+    if (cardsNotFaceUp && (cardsNotFaceUp.count < self.matchMode)) {
+        // Pone visibles todas las cartas no jugables
+        [self markCards:cardsNotFaceUp unplayable:NO faceUp:YES];
+        return YES;
+    }
+    
+    // Para todas las cartas en juego comprueba si hay coincidencia
+    if ([self isMatchPosible]) {
+        return NO;
+    }
+    
+    // Pone visibles todas las cartas no jugables
+    [self markCards:cardsNotFaceUp unplayable:NO faceUp:YES];
+    return YES;
+}
+
+// Obtiene todas las cartas en juego
+- (NSArray *) cardsNotFaceUp
+{
+    NSMutableArray *cardsNotFaceUp = [[NSMutableArray alloc] init];
+    for (Card *card in self.cards) {
+        if (!card.isUnplayable){
+            [cardsNotFaceUp addObject:card];
+        }
+    }
+    return cardsNotFaceUp;
+}
+    
+// Devuelve YES cuando es posible hacer una coincidencia con las cartas que hay en juego
+- (BOOL) isMatchPosible
+{
+    // Para todas las cartas en juego comprueba si hay coincidencia
+    NSArray *cardsNotFaceUp = [self cardsNotFaceUp];
+    for (Card *card in cardsNotFaceUp) {
+        NSMutableArray *othersCards = [NSMutableArray arrayWithArray:cardsNotFaceUp];
+        [othersCards removeObject:card];
+        if ([card match:othersCards]){
+            return YES;
+        }
+    }
+    return NO;
 }
 
 // ---------------------------------------

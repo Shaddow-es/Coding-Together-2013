@@ -16,4 +16,7 @@
 // Saca una carta de la baraja
 - (Card *) drawRandomCard;
 
+// Propiedad que indica el número de cartas que quedan en la baraja
+@property (nonatomic, readonly) NSUInteger count;
+
 @end

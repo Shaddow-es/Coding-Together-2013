@@ -22,9 +22,10 @@
     _setCardView = setCardView;
     
     _setCardView.color = SetCardColorTypeRed;
-    _setCardView.shade = SetCardShadeTypeSolid;
+    _setCardView.shade = SetCardShadeTypeStriped;
     _setCardView.symbol = SetCardSymbolTypeSquiggle;
-    _setCardView.number = 2;
+    _setCardView.number = 3;
+    _setCardView.selected = NO;
     
 //    _setCardView.shade = SetCardShadeTypeStriped;
 }

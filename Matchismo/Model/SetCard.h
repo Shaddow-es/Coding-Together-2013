@@ -7,23 +7,12 @@
 //
 
 #import "Card.h"
+#import "SetCardHelper.h"
 
 @interface SetCard : Card
 
-typedef NS_ENUM(NSInteger, SetCardColorType) {
-    SetCardColorTypeRed,
-    SetCardColorTypeGreen,
-    SetCardColorTypePurple
-};
-
-typedef NS_ENUM(NSInteger, SetCardShadeType) {
-    SetCardShadeTypeSolid,
-    SetCardShadeTypeStriped,
-    SetCardShadeTypeOpen
-};
-
 @property (nonatomic) NSUInteger number;
-@property (strong, nonatomic) NSString *symbol;
+@property (nonatomic) SetCardSymbolType symbol;
 @property (nonatomic) SetCardShadeType shade;
 @property (nonatomic) SetCardColorType color;
 

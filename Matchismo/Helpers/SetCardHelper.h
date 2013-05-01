@@ -1,15 +1,18 @@
 //
-//  SetCardView.h
-//  SuperSetCard
+//  SetCardHelper.h
+//  Matchismo
 //
-//  Created by David Muñoz Fernández on 17/02/13.
+//  Created by David Muñoz Fernández on 24/02/13.
 //  Copyright (c) 2013 David Muñoz Fernández. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#ifndef Matchismo_SetCardHelper_h
+#define Matchismo_SetCardHelper_h
 
-@interface SetCardView : UIView
 
+// -----------------------------------------------
+//  -- Enumerados para las propiedades de SetCard
+// -----------------------------------------------
 
 typedef NS_ENUM(NSInteger, SetCardColorType) {
     SetCardColorTypeRed,
@@ -29,10 +32,4 @@ typedef NS_ENUM(NSInteger, SetCardSymbolType) {
     SetCardSymbolTypeOval
 };
 
-@property (nonatomic) NSUInteger number;
-@property (nonatomic) SetCardSymbolType symbol;
-@property (nonatomic) SetCardShadeType shade;
-@property (nonatomic) SetCardColorType color;
-@property (nonatomic, getter = isSelected) BOOL selected;
-
-@end
+#endif

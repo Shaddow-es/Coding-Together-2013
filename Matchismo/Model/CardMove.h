@@ -15,7 +15,8 @@ typedef NS_ENUM(NSInteger, CardMoveType) {
     CardMoveTypeMatch,
     CardMoveTypeMismatch,
     CardMoveTypeGameStarted,
-    CardMoveTypeGameFinished
+    CardMoveTypeGameFinished,
+    CardMoveTypePlayMoreCards
 };
 
 // Inicializador designado

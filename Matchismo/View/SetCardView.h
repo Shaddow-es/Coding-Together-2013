@@ -7,27 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SetCardHelper.h"
 
 @interface SetCardView : UIView
-
-
-typedef NS_ENUM(NSInteger, SetCardColorType) {
-    SetCardColorTypeRed,
-    SetCardColorTypeGreen,
-    SetCardColorTypePurple
-};
-
-typedef NS_ENUM(NSInteger, SetCardShadeType) {
-    SetCardShadeTypeSolid,
-    SetCardShadeTypeStriped,
-    SetCardShadeTypeOpen
-};
-
-typedef NS_ENUM(NSInteger, SetCardSymbolType) {
-    SetCardSymbolTypeDiamond,
-    SetCardSymbolTypeSquiggle,
-    SetCardSymbolTypeOval
-};
 
 @property (nonatomic) NSUInteger number;
 @property (nonatomic) SetCardSymbolType symbol;

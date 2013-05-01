@@ -49,4 +49,8 @@
     return _cards;
 }
 
+- (NSUInteger) count
+{
+    return (self.cards) ? [self.cards count] : 0;
+}
 @end

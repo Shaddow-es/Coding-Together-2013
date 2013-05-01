@@ -33,13 +33,13 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.startingCardCount;
+    return [self.game numberOfCardsInPlay];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PlayingCard" forIndexPath:indexPath];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[self collectionViewCellIdentifier] forIndexPath:indexPath];
     Card *card = [self.game cardAtIndex:indexPath.item];
     [self updateCell:cell usingCard:card animate:NO];
     return cell;
@@ -68,6 +68,22 @@
                                  userInfo:nil];
 }
 
+// Devuelve un string con formato con el contenido de la carta (para el histórico)
+- (NSAttributedString *) cardAsAttributedString:(Card *)card
+{
+    @throw [NSException exceptionWithName:@"Método abstracto no implementado"
+                                   reason:@"Estás invocando al método abstracto 'cardAsAttributedString'!"
+                                 userInfo:nil];
+}
+
+// Devuelve el identificador de la celda (UICollectionViewCell)
+- (NSString *)collectionViewCellIdentifier
+{
+    @throw [NSException exceptionWithName:@"Método abstracto no implementado"
+                                   reason:@"Estás invocando al método abstracto 'collectionViewCellIdentifier'!"
+                                 userInfo:nil];
+}
+
 // ---------------------------------------
 //  -- Public methods
 // ---------------------------------------
@@ -82,8 +98,11 @@
                                                  matchMode:self.matchCount
                                                 matchBonus:self.matchBonus
                                             mismatchPenaly:self.mismatchPenalty
-                                                  flipCost:self.flipCost];
+                                                  flipCost:self.flipCost
+                                               newCardCost:self.newCardCost
+                                               removeCards:self.removeCards];
     self.flipCount = 0;
+    [self.cardCollectionView reloadData];
     [self updateUI];
 }
 
@@ -131,6 +150,35 @@
     self.lastActionLabel.attributedText = [self cardMoveToAttributedString:cardMove];
 }
 
+#define MORE_DEAL_CARD_COUNT 3
+- (IBAction)dealMoreCards:(UIButton *)sender
+{
+    if (![self.game playMoreCards:MORE_DEAL_CARD_COUNT]) {
+        // No había cartas suficientes
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Baraja agotada"
+                                                        message:@"No hay más cartas en la baraja"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    } else {
+        // Añade las cartas puestas en juego a la colección
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        for (int i=1; i<=MORE_DEAL_CARD_COUNT; i++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.game numberOfCardsInPlay]-i inSection:0];
+            [indexPaths addObject:indexPath];
+        }
+        [self.cardCollectionView insertItemsAtIndexPaths:indexPaths];
+
+        // Realiza scroll a las nuevas cartas puestas en juego
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.game numberOfCardsInPlay]-1 inSection:0];
+        [self.cardCollectionView scrollToItemAtIndexPath:indexPath
+                                        atScrollPosition:UICollectionViewScrollPositionBottom
+                                                animated:YES];
+        [self updateUI];
+    }
+}
+
 
 // ---------------------------------------
 //  -- Private methods
@@ -140,7 +188,15 @@
 - (void) updateUI
 {
     self.scoreLabel.text = [NSString stringWithFormat:@"Puntos: %d", self.game.score];
-    self.lastActionLabel.attributedText = [self cardMoveToAttributedString:[self.game.moves lastObject]];
+    CardMove *cardMove = [self.game.moves lastObject];
+    self.lastActionLabel.attributedText = [self cardMoveToAttributedString:cardMove];
+    
+    // Si hubo un match, elimina las cartas de la colección y del modelo
+    if (self.removeCards && (cardMove.type == CardMoveTypeMatch) ) {
+        NSArray *indexPaths = [self.game indexesOfCards:cardMove.cards];
+        [self.cardCollectionView deleteItemsAtIndexPaths:indexPaths];
+        [self.game removeCards:cardMove.cards];
+    }
     
     // Actualiza el slider
     self.historySlider.maximumValue = [self.game.moves count];
@@ -156,15 +212,9 @@
     for (UICollectionViewCell *cell in [self.cardCollectionView visibleCells]) {
         NSIndexPath *indexPath = [self.cardCollectionView indexPathForCell:cell];
         Card *card = [self.game cardAtIndex:indexPath.item];
-        [self updateCell:cell usingCard:card animate:YES];
+        // Solo anima el volteo si está configurado así en las preferencias
+        [self updateCell:cell usingCard:card animate:[GameSettings isFlipAnimated]];
     }
-}
-
-// Devuelve un string con formato con el contenido de la carta
-- (NSAttributedString *) cardAsAttributedString:(Card *)card
-{
-    NSString *str = [NSString stringWithFormat:@"%@ ", card.contents];
-    return [[NSMutableAttributedString alloc] initWithString:str];
 }
 
 // Devuelve un string con formato con un array de cartas
@@ -220,6 +270,9 @@
         
         [cardAttributtedString appendAttributedString:[self cardsAsAttributedString:cardMove.cards]];
         [cardAttributtedString appendAttributedString:astrEnd];
+    } else if (cardMove.type == CardMoveTypePlayMoreCards) {
+        NSString *str = [NSString stringWithFormat:@"Añadidas %d cartas en juego", [cardMove.cards count] ];
+        [cardAttributtedString appendAttributedString:[self stringToLabelAttributedString:str]];
     }
     
     return cardAttributtedString;
