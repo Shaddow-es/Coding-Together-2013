@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="GK0-pE-HL7">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+    </dependencies>
+    <scenes>
+        <!--Test View Controller - Hola caracola-->
+        <scene sceneID="5">
+            <objects>
+                <viewController id="2" customClass="TestViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3">
+                        <rect key="frame" x="0.0" y="64" width="320" height="372"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="On1-Pj-sH7">
+                                <items>
+                                    <barButtonItem title="Item" id="lmM-xt-aqF"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="xcM-VZ-FOV"/>
+                                    <barButtonItem title="Item" id="aoM-Ta-Qw6"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Pq7-hj-Mzo"/>
+                                    <barButtonItem title="Item" id="tX2-dH-Sll"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="On1-Pj-sH7" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="N2G-Dm-9t7"/>
+                            <constraint firstItem="On1-Pj-sH7" firstAttribute="centerY" secondItem="3" secondAttribute="centerY" type="default" id="RzG-bx-gZY"/>
+                            <constraint firstItem="On1-Pj-sH7" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="TZy-Ye-Jnd"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem systemItem="play" id="sJ9-dW-C67"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="m0v-zT-SFa"/>
+                        <barButtonItem title="Item" style="plain" id="uu8-qd-Odb"/>
+                        <barButtonItem systemItem="flexibleSpace" id="CX6-Vc-eTY"/>
+                        <barButtonItem systemItem="camera" id="Euq-3m-obu">
+                            <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Hola caracola" id="HoT-Pa-Tec">
+                        <barButtonItem key="backBarButtonItem" title="Atras" id="LgK-Nm-KTn"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="476" y="-135"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="2oU-UF-7h8">
+            <objects>
+                <navigationController toolbarHidden="NO" id="GK0-pE-HL7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CDs-xS-6pc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="WQg-hX-Paf">
+                        <rect key="frame" x="0.0" y="436" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="2" kind="relationship" relationship="rootViewController" id="2fm-x1-tPc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Esf-rO-DYn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-84" y="445"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
+</document>
