@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
-        <!--Latest Flickr PhotosTVC - Imágenes-->
+        <!--Latest Flickr PhotosTVC - Shutterbug-->
         <scene sceneID="PD7-S6-YSd">
             <objects>
                 <tableViewController id="5BC-D6-fuv" customClass="LatestFlickrPhotosTVC" sceneMemberID="viewController">
@@ -43,7 +43,7 @@
                             <outlet property="delegate" destination="5BC-D6-fuv" id="tzB-jb-O2m"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Imágenes" id="Aon-Lb-gZn"/>
+                    <navigationItem key="navigationItem" title="Shutterbug" id="Aon-Lb-gZn"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7SY-qI-2jU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -95,23 +95,6 @@
             <point key="canvasLocation" x="-168" y="8"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="FlickrPhotoTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoTVC.h"/>
-        </class>
-        <class className="ImageViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ImageViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="LatestFlickrPhotosTVC" superclassName="FlickrPhotoTVC">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LatestFlickrPhotosTVC.h"/>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

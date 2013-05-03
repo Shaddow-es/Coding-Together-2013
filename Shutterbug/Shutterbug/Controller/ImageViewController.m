@@ -7,10 +7,13 @@
 //
 
 #import "ImageViewController.h"
+#import "AttributedStringViewController.h"
 
 @interface ImageViewController () <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *titleBarButtonItem;
+@property (strong, nonatomic) UIPopoverController *urlPopover;
 @end
 
 @implementation ImageViewController
@@ -30,6 +33,8 @@
     self.scrollView.delegate = self;
     // resetea la imagen
     [self resetImage];
+    // establece el título
+    self.titleBarButtonItem.title = self.title;
 }
 
 
@@ -70,6 +75,36 @@
     return self.imageView;
 }
 
+
+// ---------------------------------------
+//  -- Table view delegate
+// ---------------------------------------
+
+#pragma mark - Table view delegate
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"Show URL"]) {
+        if( [segue.destinationViewController isKindOfClass:[AttributedStringViewController class]] ) {
+            AttributedStringViewController *asc = (AttributedStringViewController *) segue.destinationViewController;
+            asc.text = [[NSAttributedString alloc] initWithString:[self.imageURL description]];
+            if ([segue isKindOfClass:[UIStoryboardPopoverSegue class]]) {
+                self.urlPopover = ((UIStoryboardPopoverSegue *) segue).popoverController;
+            }
+        }
+    }
+}
+
+- (BOOL) shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if ([identifier isEqualToString:@"Show URL"]) {
+        // Solo hacer el segue si tiene url y el popover no está visible
+        return (self.imageURL && !self.urlPopover.popoverVisible) ? YES : NO;
+    } else {
+        return [super shouldPerformSegueWithIdentifier:identifier sender:sender];
+    }
+}
+
 // ---------------------------------------
 //  -- Getters & Setters
 // ---------------------------------------
@@ -79,6 +114,12 @@
 {
     _imageURL = imageURL;
     [self resetImage];
+}
+
+- (void) setTitle:(NSString *)title
+{
+    super.title = title;
+    self.titleBarButtonItem.title = title;
 }
 
 - (UIImageView *) imageView
