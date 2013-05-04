@@ -14,6 +14,7 @@
 @property (strong, nonatomic) UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *titleBarButtonItem;
 @property (strong, nonatomic) UIPopoverController *urlPopover;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @end
 
 @implementation ImageViewController
@@ -50,18 +51,30 @@
         self.scrollView.contentSize = CGSizeZero;
         self.imageView.image = nil;
         
-        NSData *imageData = [[NSData alloc] initWithContentsOfURL:self.imageURL];
-        UIImage *image = [[UIImage alloc] initWithData:imageData];
-        if (image) {
-            // La imagen se ha cargado correctamente
-            //self.scrollView.zoomScale = 1.0;
-            self.scrollView.contentSize = image.size;
-            self.imageView.image = image;
-            self.imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-            // Escala la imagen para mostrar el máximo posible
-            [self.scrollView zoomToRect:self.imageView.frame animated:NO];
-            
-        }
+        [self.spinner startAnimating];
+        NSURL *imageURL = self.imageURL;
+        dispatch_queue_t imageFetcherQ = dispatch_queue_create("image fetcher", NULL);
+        dispatch_async(imageFetcherQ, ^{
+            [NSThread sleepForTimeInterval:2.0];
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+            NSData *imageData = [[NSData alloc] initWithContentsOfURL:self.imageURL];
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            UIImage *image = [[UIImage alloc] initWithData:imageData];
+            if (self.imageURL == imageURL) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (image) {
+                        // La imagen se ha cargado correctamente
+                        //self.scrollView.zoomScale = 1.0;
+                        self.scrollView.contentSize = image.size;
+                        self.imageView.image = image;
+                        self.imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+                        // Escala la imagen para mostrar el máximo posible
+                        [self.scrollView zoomToRect:self.imageView.frame animated:NO];
+                    }
+                    [self.spinner stopAnimating];
+                });
+            }
+        });
     }
 }
 
