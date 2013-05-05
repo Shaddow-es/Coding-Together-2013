@@ -1,14 +1,14 @@
 //
-//  TestAppDelegate.m
-//  Test
+//  AppDelegate.m
+//  Photomania
 //
-//  Created by David Muñoz Fernández on 01/05/13.
+//  Created by David Muñoz Fernández on 04/05/13.
 //  Copyright (c) 2013 David Muñoz Fernández. All rights reserved.
 //
 
-#import "TestAppDelegate.h"
+#import "AppDelegate.h"
 
-@implementation TestAppDelegate
+@implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
