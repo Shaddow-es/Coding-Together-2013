@@ -96,7 +96,7 @@
             if ([segue.identifier isEqualToString:@"Show Image"]) {
                 if ([segue.destinationViewController respondsToSelector:@selector(setImageURL:)]) {
                     NSDictionary *photo = self.photos[indexPath.row];
-                    NSURL *url = [photo objectForKey:@"PATH"];
+                    NSURL *url = [FlickrFetcher urlForPhoto:photo format:FlickrPhotoFormatLarge];
                     [segue.destinationViewController performSelector:@selector(setImageURL:) withObject:url];
                     [segue.destinationViewController setTitle:[self titleForRow:indexPath.row]];
                 }

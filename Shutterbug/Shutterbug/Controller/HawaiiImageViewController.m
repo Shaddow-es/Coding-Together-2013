@@ -19,7 +19,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.imageURL = [[NSURL alloc] initFileURLWithPath:@"/Users/dmunoz/Desktop/paris.jpg"];
+    self.imageURL = [[NSURL alloc] initWithString:@"http://images.apple.com/v/iphone/gallery/a/images/photo_3.jpg"];
 }
 
 @end
