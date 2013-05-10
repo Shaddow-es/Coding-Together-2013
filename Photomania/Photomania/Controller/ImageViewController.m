@@ -10,8 +10,9 @@
 
 @interface ImageViewController () <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (strong, nonatomic) UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+
+@property (strong, nonatomic) UIImageView *imageView;
 @end
 
 @implementation ImageViewController
@@ -63,8 +64,10 @@
                         self.scrollView.contentSize = image.size;
                         self.imageView.image = image;
                         self.imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-                        // Escala la imagen para mostrar el máximo posible
-                        [self.scrollView zoomToRect:self.imageView.frame animated:NO];
+                        // Escala la imagen para mostrar el máximo alto posible
+                        CGRect imgHeightFrame = CGRectMake(0, 0, 0, image.size.height);
+                        // Escala la imagen para mostrar el máximo alto posible
+                        [self.scrollView zoomToRect:imgHeightFrame animated:NO];
                     }
                     [self.spinner stopAnimating];
                 });

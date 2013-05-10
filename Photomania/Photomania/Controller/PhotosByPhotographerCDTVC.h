@@ -11,6 +11,7 @@
 
 @interface PhotosByPhotographerCDTVC : CoreDataTableViewController
 
+// Especifica el fotógrafo del que cargar las fotografías
 @property (nonatomic, strong) Photographer *photographer;
 
 @end

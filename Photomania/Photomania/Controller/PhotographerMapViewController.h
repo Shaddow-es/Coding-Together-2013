@@ -1,17 +1,19 @@
 //
-//  PhotographerCDTVC.h
+//  PhotographerMapViewController.h
 //  Photomania
 //
-//  Created by David Muñoz Fernández on 04/05/13.
+//  Created by David Muñoz Fernández on 05/05/13.
 //  Copyright (c) 2013 David Muñoz Fernández. All rights reserved.
 //
-//  Can do "setPhotographer:" segue and will call said method in destination VC.
 
-#import "CoreDataTableViewController.h"
+#import "MapViewController.h"
 
-@interface PhotographerCDTVC : CoreDataTableViewController
+@interface PhotographerMapViewController : MapViewController
 
 // Especifica el contexto de la BBDD a la que conectar para obtener los fotógrafos
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
+// Recarga los datos de la bbdd
+- (void) reload;
 
 @end

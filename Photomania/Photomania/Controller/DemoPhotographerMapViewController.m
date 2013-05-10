@@ -1,16 +1,16 @@
 //
-//  DemoPhotographerCDTVC.m
+//  DemoPhotographerMapViewController.m
 //  Photomania
 //
-//  Created by David Muñoz Fernández on 04/05/13.
+//  Created by David Muñoz Fernández on 05/05/13.
 //  Copyright (c) 2013 David Muñoz Fernández. All rights reserved.
 //
 
-#import "DemoPhotographerCDTVC.h"
+#import "DemoPhotographerMapViewController.h"
 #import "FlickrFetcher.h"
 #import "Photo+Flickr.h"
 
-@implementation DemoPhotographerCDTVC
+@implementation DemoPhotographerMapViewController
 
 
 // ---------------------------------------
@@ -30,15 +30,6 @@
     if (!self.managedObjectContext) {
         [self useDemoDocument];
     }
-}
-
-- (void) viewDidLoad
-{
-    [super viewDidLoad];
-    // Asocia el target del control de refresco de la tabla a la acción refresh
-    [self.refreshControl addTarget:self
-                            action:@selector(refresh)
-                  forControlEvents:UIControlEventValueChanged];
 }
 
 // ---------------------------------------
@@ -68,13 +59,14 @@
         // Existe y está cerrado -> lo abre
         [document openWithCompletionHandler:^(BOOL success) {
             if (success) {
-                self.managedObjectContext = document.managedObjectContext;                
+                self.managedObjectContext = document.managedObjectContext;
             }
         }];
     } else {
         // Existe y no está cerrado -> intenta utilizarlo
         self.managedObjectContext = document.managedObjectContext;
     }
+    [self refresh];
 }
 
 
@@ -85,7 +77,6 @@
 
 - (IBAction) refresh
 {
-    [self.refreshControl beginRefreshing];
     dispatch_queue_t fetchQ = dispatch_queue_create("Flickr Fetch", NULL);
     dispatch_async(fetchQ, ^{
         NSArray *photos = [FlickrFetcher latestGeoreferencedPhotos];
@@ -96,9 +87,11 @@
                 [Photo photoWithFlickrInfo:photo inManagedObjectContext:self.managedObjectContext];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.refreshControl endRefreshing];
+                [self reload];
             });
         }];
     });
 }
+
+
 @end

@@ -33,8 +33,11 @@
         photo.unique = [photoDictionary[FLICKR_PHOTO_ID] description];
         photo.title = [photoDictionary[FLICKR_PHOTO_TITLE] description];
         photo.subtitle = [[photoDictionary valueForKeyPath:FLICKR_PHOTO_DESCRIPTION] description];
-        //photo.imageURL = [[ FlickrFetcher urlForPhoto:photoDictionary format:FlickrPhotoFormatLarge] absoluteString];
-        photo.imageURL = [photoDictionary[@"PATH"] description];
+        photo.latitude = photoDictionary[FLICKR_LATITUDE];
+        photo.longitude = [NSNumber numberWithDouble:[photoDictionary[FLICKR_LONGITUDE] doubleValue]];
+        photo.longitude = photoDictionary[FLICKR_LONGITUDE];
+        photo.imageURL = [[ FlickrFetcher urlForPhoto:photoDictionary format:FlickrPhotoFormatLarge] absoluteString];
+        photo.thumbnailURLString = [[ FlickrFetcher urlForPhoto:photoDictionary format:FlickrPhotoFormatSquare] absoluteString];
         
         // Crea el fotografo y lo relaciona con la foto
         NSString *photographerName = [photoDictionary[FLICKR_PHOTO_OWNER] description];

@@ -2,7 +2,7 @@
 //  Photo.h
 //  Photomania
 //
-//  Created by David Muñoz Fernández on 04/05/13.
+//  Created by David Muñoz Fernández on 06/05/13.
 //  Copyright (c) 2013 David Muñoz Fernández. All rights reserved.
 //
 
@@ -13,9 +13,12 @@
 
 @interface Photo : NSManagedObject
 
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSString * subtitle;
 @property (nonatomic, retain) NSString * imageURL;
+@property (nonatomic, retain) NSNumber * latitude;
+@property (nonatomic, retain) NSNumber * longitude;
+@property (nonatomic, retain) NSString * subtitle;
+@property (nonatomic, retain) NSString * thumbnailURLString;
+@property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * unique;
 @property (nonatomic, retain) Photographer *whoTook;
 
