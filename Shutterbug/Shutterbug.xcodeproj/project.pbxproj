@@ -129,12 +129,12 @@
 		8630D3FE17317ED900D7E74D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				86A3150F17357914003DB1C6 /* LatestFlickrPhotosTVC.m */,
-				86A3151017357914003DB1C6 /* FlickrPhotoTVC.m */,
 				86A3151117357914003DB1C6 /* LatestFlickrPhotosTVC.h */,
+				86A3150F17357914003DB1C6 /* LatestFlickrPhotosTVC.m */,
 				86A3151217357914003DB1C6 /* FlickrPhotoTVC.h */,
-				86A3151317357914003DB1C6 /* HawaiiImageViewController.m */,
+				86A3151017357914003DB1C6 /* FlickrPhotoTVC.m */,
 				86A3151417357914003DB1C6 /* HawaiiImageViewController.h */,
+				86A3151317357914003DB1C6 /* HawaiiImageViewController.m */,
 				8630D3FF173180C000D7E74D /* ImageViewController.h */,
 				8630D400173180C000D7E74D /* ImageViewController.m */,
 				869FF71C1733171A0094424D /* AttributedStringViewController.h */,
