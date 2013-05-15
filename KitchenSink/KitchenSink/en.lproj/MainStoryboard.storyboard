@@ -14,15 +14,25 @@
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ozb-gI-TFz">
                                 <items>
-                                    <barButtonItem title="Add Food" id="A2d-5r-2Tx">
+                                    <barButtonItem title="Añadir comida" id="A2d-5r-2Tx">
                                         <connections>
                                             <segue destination="E14-Ko-D2M" kind="modal" identifier="Ask" modalPresentationStyle="fullScreen" modalTransitionStyle="partialCurl" id="y6R-pO-WIL"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Cxc-TH-hrJ"/>
+                                    <barButtonItem title="Control Sink" id="rU2-QE-Mml">
+                                        <connections>
+                                            <action selector="controlSink:" destination="2" id="SsF-a6-Gcg"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
                             </toolbar>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y0g-zJ-EL4">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="qcw-C2-elv" appends="YES" id="7i3-AS-XFx"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -36,8 +46,16 @@
                             <constraint firstItem="y0g-zJ-EL4" firstAttribute="top" secondItem="Ozb-gI-TFz" secondAttribute="bottom" type="default" id="whf-85-IS9"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="kitchenSink" destination="y0g-zJ-EL4" id="XFd-jS-Nl5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="qcw-C2-elv">
+                    <connections>
+                        <action selector="tap:" destination="2" id="URh-7A-oUR"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
         </scene>
         <!--Asker View Controller-->
