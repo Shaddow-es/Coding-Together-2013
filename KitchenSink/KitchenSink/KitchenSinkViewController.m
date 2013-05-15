@@ -9,6 +9,7 @@
 #import "KitchenSinkViewController.h"
 #import "AskerViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "CMMotionManager+Shared.h"
 
 @interface KitchenSinkViewController () <UIActionSheetDelegate,
 UIImagePickerControllerDelegate, UINavigationControllerDelegate,
@@ -172,15 +173,52 @@ UIPopoverControllerDelegate>
 
 - (void) viewDidAppear:(BOOL)animated
 {
+    // Importante arrancar los timers, coremotion solo cuando es visible
     [super viewDidAppear:animated];
     [self startDrainTimer];
     [self cleanDish];
+    
+    [self startDrift];
 }
 
 - (void) viewWillDisappear:(BOOL)animated
 {
+    // Importante parar los timers, coremotion cuando no va a ser visible
     [super viewWillDisappear:animated];
     [self stopDrainTimer];
+    
+    [self stopDrift];
+}
+
+#pragma mark - Drift
+
+#define DRIFT_HZ 10
+#define DRIFT_RATE 10
+
+- (void) startDrift
+{
+    CMMotionManager *motionManager = [CMMotionManager sharedMotionManager];
+    if ([motionManager isAccelerometerAvailable]) {
+        [motionManager setAccelerometerUpdateInterval:1/DRIFT_HZ];
+        [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *data, NSError *error) {
+            for (UIView *view in self.kitchenSink.subviews) {
+                CGPoint center = view.center;
+                center.x += data.acceleration.x * DRIFT_RATE;
+                center.y += data.acceleration.y * DRIFT_RATE;
+                view.center = center;
+                
+                if (!CGRectContainsRect(self.kitchenSink.bounds, view.frame) &&
+                    !CGRectIntersectsRect(self.kitchenSink.bounds, view.frame)) {
+                    [view removeFromSuperview];
+                }
+            }
+        }];
+    }
+}
+
+- (void) stopDrift
+{
+    [[CMMotionManager sharedMotionManager] stopAccelerometerUpdates];
 }
 
 - (void) drain
