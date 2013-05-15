@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		86AA85281743A333005C0B74 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86AA85271743A333005C0B74 /* MobileCoreServices.framework */; };
+		86AA852B1743ADA2005C0B74 /* CMMotionManager+Shared.m in Sources */ = {isa = PBXBuildFile; fileRef = 86AA852A1743ADA2005C0B74 /* CMMotionManager+Shared.m */; };
+		86AA852E1743B155005C0B74 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86AA852D1743B155005C0B74 /* CoreMotion.framework */; };
 		86E4FAD8173D75AB00C6C306 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86E4FAD7173D75AB00C6C306 /* UIKit.framework */; };
 		86E4FADA173D75AB00C6C306 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86E4FAD9173D75AB00C6C306 /* Foundation.framework */; };
 		86E4FADC173D75AB00C6C306 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86E4FADB173D75AB00C6C306 /* CoreGraphics.framework */; };
@@ -22,6 +25,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		86AA85271743A333005C0B74 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		86AA85291743ADA2005C0B74 /* CMMotionManager+Shared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CMMotionManager+Shared.h"; path = "Model/CMMotionManager+Shared.h"; sourceTree = "<group>"; };
+		86AA852A1743ADA2005C0B74 /* CMMotionManager+Shared.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CMMotionManager+Shared.m"; path = "Model/CMMotionManager+Shared.m"; sourceTree = "<group>"; };
+		86AA852D1743B155005C0B74 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		86E4FAD4173D75AB00C6C306 /* KitchenSink.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KitchenSink.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86E4FAD7173D75AB00C6C306 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		86E4FAD9173D75AB00C6C306 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -47,6 +54,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86AA852E1743B155005C0B74 /* CoreMotion.framework in Frameworks */,
+				86AA85281743A333005C0B74 /* MobileCoreServices.framework in Frameworks */,
 				86E4FAD8173D75AB00C6C306 /* UIKit.framework in Frameworks */,
 				86E4FADA173D75AB00C6C306 /* Foundation.framework in Frameworks */,
 				86E4FADC173D75AB00C6C306 /* CoreGraphics.framework in Frameworks */,
@@ -56,6 +65,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		86AA852C1743ADB3005C0B74 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				86AA85291743ADA2005C0B74 /* CMMotionManager+Shared.h */,
+				86AA852A1743ADA2005C0B74 /* CMMotionManager+Shared.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		86E4FACB173D75AA00C6C306 = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +94,8 @@
 		86E4FAD6173D75AB00C6C306 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				86AA852D1743B155005C0B74 /* CoreMotion.framework */,
+				86AA85271743A333005C0B74 /* MobileCoreServices.framework */,
 				86E4FAD7173D75AB00C6C306 /* UIKit.framework */,
 				86E4FAD9173D75AB00C6C306 /* Foundation.framework */,
 				86E4FADB173D75AB00C6C306 /* CoreGraphics.framework */,
@@ -89,6 +109,7 @@
 				86E4FAEF173D75AB00C6C306 /* MainStoryboard.storyboard */,
 				86E4FAFD173D76E300C6C306 /* Controller */,
 				86E4FADE173D75AB00C6C306 /* Supporting Files */,
+				86AA852C1743ADB3005C0B74 /* Model */,
 			);
 			path = KitchenSink;
 			sourceTree = "<group>";
@@ -191,6 +212,7 @@
 				86E4FAE8173D75AB00C6C306 /* KitchenSinkAppDelegate.m in Sources */,
 				86E4FAF4173D75AB00C6C306 /* KitchenSinkViewController.m in Sources */,
 				86E4FAFC173D76DB00C6C306 /* AskerViewController.m in Sources */,
+				86AA852B1743ADA2005C0B74 /* CMMotionManager+Shared.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +337,7 @@
 				86E4FAF9173D75AB00C6C306 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
