@@ -8,8 +8,11 @@
 
 #import "KitchenSinkViewController.h"
 #import "AskerViewController.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
-@interface KitchenSinkViewController () <UIActionSheetDelegate>
+@interface KitchenSinkViewController () <UIActionSheetDelegate,
+UIImagePickerControllerDelegate, UINavigationControllerDelegate,
+UIPopoverControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *kitchenSink;
 // weak pq todos los NSTimer tienen un puntero strong por el sistema
@@ -17,6 +20,7 @@
 @property (weak, nonatomic) NSTimer *drainTimer;
 // Para evitar en el ipad que se puedan abrir más de un actionsheet
 @property (weak, nonatomic) UIActionSheet *sinkControlActionSheet;
+@property (strong, nonatomic) UIPopoverController *imagePickerPopover;
 
 @end
 
@@ -40,6 +44,81 @@
                                                         otherButtonTitles:drainButton, nil];
         [actionSheet showFromBarButtonItem:sender animated:YES];
         self.sinkControlActionSheet = actionSheet; 
+    }
+}
+
+- (IBAction)takeFoodPhoto:(UIBarButtonItem *)sender {
+    [self presentImagePicker:UIImagePickerControllerSourceTypeCamera sender:sender];
+}
+
+- (IBAction)addFoodPhoto:(UIBarButtonItem *)sender {
+    [self presentImagePicker:UIImagePickerControllerSourceTypeSavedPhotosAlbum sender:sender];
+}
+
+- (void) presentImagePicker:(UIImagePickerControllerSourceType)sourceType sender:(UIBarButtonItem *)sender
+{
+    if (!self.imagePickerPopover && [UIImagePickerController isSourceTypeAvailable:sourceType]) {
+        NSArray *availableMediaTypes = [UIImagePickerController availableMediaTypesForSourceType:sourceType];
+        if ([availableMediaTypes containsObject:(NSString *)kUTTypeImage]) {
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.sourceType = sourceType;
+            picker.mediaTypes = @[(NSString *)kUTTypeImage];
+            picker.allowsEditing = YES;
+            picker.delegate = self;
+            // muestra el picker
+            if ((sourceType != UIImagePickerControllerSourceTypeCamera) &&
+                (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
+                // popover
+                self.imagePickerPopover = [[UIPopoverController alloc] initWithContentViewController:picker];
+                [self.imagePickerPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                self.imagePickerPopover.delegate = self;
+            } else {
+                // modal
+                [self presentViewController:picker animated:YES completion:nil];
+            }
+        }
+    }
+}
+
+// Cancelado popover
+- (void) popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    self.imagePickerPopover = nil;
+}
+
+// Cancelado el modal de la selección de foto
+- (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#define MAX_IMAGE_WIDTH 200
+
+- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = info[UIImagePickerControllerEditedImage];
+    if (!image) {
+        image = info[UIImagePickerControllerOriginalImage];
+    }
+    if (image) {
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        CGRect frame = imageView.frame;
+        if (frame.size.width > MAX_IMAGE_WIDTH) {
+            frame.size.height = (frame.size.height / frame.size.width) * MAX_IMAGE_WIDTH;
+            frame.size.width = MAX_IMAGE_WIDTH;
+        }
+        imageView.frame = frame;
+        [self setRandomLocationForView:imageView];
+        [self.kitchenSink addSubview:imageView];
+    }
+    // cancela el picker de fotos
+    if (self.imagePickerPopover) {
+        // popover
+        [self.imagePickerPopover dismissPopoverAnimated:YES];
+        self.imagePickerPopover = nil;
+    } else {
+        // Modal
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -210,15 +289,16 @@
     foodLabel.text = food;
     foodLabel.font = [UIFont systemFontOfSize:46];
     foodLabel.backgroundColor = [UIColor clearColor];
+    
+    // Tamaño intrínseco de la vista al contenido del botón
+    [foodLabel sizeToFit];
+    
     [self setRandomLocationForView:foodLabel];
     [self.kitchenSink addSubview:foodLabel];
 }
 
 - (void) setRandomLocationForView:(UIView *)view
 {
-    // Tamaño intrínseco de la vista al contenido del botón
-    [view sizeToFit];
-    
     // Establece el tamaño y la posición del botón (aleatoria)
     CGRect sinkBounds = CGRectInset(self.kitchenSink.bounds, view.frame.size.width/2, view.frame.size.height/2);
     CGFloat x = arc4random() % (int) sinkBounds.size.width + view.frame.size.width/2;

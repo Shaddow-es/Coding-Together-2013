@@ -20,7 +20,17 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Cxc-TH-hrJ"/>
-                                    <barButtonItem title="Control Sink" id="rU2-QE-Mml">
+                                    <barButtonItem title="Añadir foto de comida" id="oAP-av-sZ0">
+                                        <connections>
+                                            <action selector="addFoodPhoto:" destination="2" id="KXq-z9-Jc0"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Hacer foto comida" id="kca-PX-NVM">
+                                        <connections>
+                                            <action selector="takeFoodPhoto:" destination="2" id="1AJ-MV-I0C"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Controlar cesta" id="rU2-QE-Mml">
                                         <connections>
                                             <action selector="controlSink:" destination="2" id="SsF-a6-Gcg"/>
                                         </connections>
