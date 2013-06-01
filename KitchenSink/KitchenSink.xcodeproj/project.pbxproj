@@ -108,8 +108,8 @@
 			children = (
 				86E4FAEF173D75AB00C6C306 /* MainStoryboard.storyboard */,
 				86E4FAFD173D76E300C6C306 /* Controller */,
-				86E4FADE173D75AB00C6C306 /* Supporting Files */,
 				86AA852C1743ADB3005C0B74 /* Model */,
+				86E4FADE173D75AB00C6C306 /* Supporting Files */,
 			);
 			path = KitchenSink;
 			sourceTree = "<group>";
