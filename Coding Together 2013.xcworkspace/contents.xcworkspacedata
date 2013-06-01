@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:SPoT/SPoT.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Fast SPoT/FastSPoT.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:KitchenSink/KitchenSink.xcodeproj">
    </FileRef>
    <FileRef
