@@ -132,8 +132,7 @@
     // Limpia los elementos cacheados expirados
     for (NSString *key in [self.dicCacheInfo allKeys]) {
         CacheInfo *cacheInfo = [self getCachedInfoForKey:key];
-        //if ([cacheInfo.lastAccess timeIntervalSinceNow] < -self.maxCacheDuration ){
-        if (self.maxCacheDuration < -[cacheInfo.lastAccess timeIntervalSinceNow] ){
+        if (self.maxCacheDuration < -[cacheInfo.dateCreated timeIntervalSinceNow] ){
             [self.dicCacheInfo removeObjectForKey:key];
         }
     }
@@ -247,10 +246,10 @@
 
 - (NSUInteger) maxCacheDuration
 {
-	if (!_maxCacheSize){
-        _maxCacheSize = CACHE_EXPIRATION_SECONDS;
+	if (!_maxCacheDuration){
+        _maxCacheDuration = CACHE_EXPIRATION_SECONDS;
     }
-	return _maxCacheSize;
+	return _maxCacheDuration;
 }
 
 - (NSMutableDictionary *) dicCacheInfo
