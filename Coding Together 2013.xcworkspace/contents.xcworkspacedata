@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Core Data SPoT/Core Data SPoT.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:SPoT/SPoT.xcodeproj">
    </FileRef>
    <FileRef

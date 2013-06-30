@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="6yZ-TA-Jhw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="6yZ-TA-Jhw">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -187,7 +187,6 @@
         <!--Navigation Controller-->
         <scene sceneID="jcI-6h-C9T">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hsN-2P-xYF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="UuI-IG-BI7" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="featured" id="FeE-S7-lr2"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="m2e-Bj-yiN">
@@ -197,6 +196,7 @@
                         <segue destination="qxJ-QB-AFw" kind="relationship" relationship="rootViewController" id="rz0-8g-xZV"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hsN-2P-xYF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1482" y="-1220"/>
         </scene>
@@ -265,6 +265,7 @@
             <relationships>
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="titleBarButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
